@@ -5,14 +5,30 @@ import epi.test_framework.TestFailure;
 import epi.test_framework.TimedExecutor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-public class DutchNationalFlag {
-  public enum Color { RED, WHITE, BLUE }
 
-  public static void dutchFlagPartition(int pivotIndex, List<Color> A) {
-    // TODO - you fill in here.
-    return;
+public class DutchNationalFlag {
+  public enum Color {RED, WHITE, BLUE}
+
+  public static void dutchFlagPartition(int pivotIndex, List<Color> colors) {
+    Color pivot = colors.get(pivotIndex);
+
+    int smaller = 0;
+    int equal = 0;
+    int larger = colors.size();
+
+    while (equal < larger) {
+      if (colors.get(equal).ordinal() < pivot.ordinal()) {
+        Collections.swap(colors, smaller++, equal++);
+      } else if (colors.get(equal).ordinal() == pivot.ordinal()) {
+        ++equal;
+      } else {
+        Collections.swap(colors, equal, --larger);
+      }
+    }
   }
+
   @EpiTest(testDataFile = "dutch_national_flag.tsv")
   public static void dutchFlagPartitionWrapper(TimedExecutor executor,
                                                List<Integer> A, int pivotIdx)
