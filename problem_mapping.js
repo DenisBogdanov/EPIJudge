@@ -274,7 +274,7 @@ problem_mapping = {
                 "total": 402
             },
             "Java: BuyAndSellStockTwice.java": {
-                "passed": 0,
+                "passed": 402,
                 "total": 402
             },
             "Python: buy_and_sell_stock_twice.py": {
@@ -500,7 +500,7 @@ problem_mapping = {
                 "total": 20001
             },
             "Java: ConvertBase.java": {
-                "passed": 0,
+                "passed": 20001,
                 "total": 20001
             },
             "Python: convert_base.py": {
@@ -664,7 +664,7 @@ problem_mapping = {
                 "total": 505
             },
             "Java: DeleteFromList.java": {
-                "passed": 0,
+                "passed": 457,
                 "total": 457
             },
             "Java: InsertInList.java": {
@@ -778,7 +778,7 @@ problem_mapping = {
                 "total": 306
             },
             "Java: DeleteKthLastFromList.java": {
-                "passed": 0,
+                "passed": 306,
                 "total": 306
             },
             "Python: delete_kth_last_from_list.py": {
@@ -962,7 +962,7 @@ problem_mapping = {
                 "total": 65
             },
             "Java: CircularQueue.java": {
-                "passed": 0,
+                "passed": 65,
                 "total": 65
             },
             "Python: circular_queue.py": {
@@ -1586,7 +1586,7 @@ problem_mapping = {
                 "total": 171
             },
             "Java: StringDecompositionsIntoDictionaryWords.java": {
-                "passed": 1,
+                "passed": 171,
                 "total": 171
             },
             "Python: string_decompositions_into_dictionary_words.py": {
