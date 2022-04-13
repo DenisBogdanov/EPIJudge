@@ -1,11 +1,17 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
-public class IsStringPalindromic {
-  @EpiTest(testDataFile = "is_string_palindromic.tsv")
 
+public class IsStringPalindromic {
+
+  @EpiTest(testDataFile = "is_string_palindromic.tsv")
   public static boolean isPalindromic(String s) {
-    // TODO - you fill in here.
+    for (int i = 0; i < s.length() / 2; i++) {
+      if (s.charAt(i) != s.charAt(s.length() - 1 - i)) {
+        return false;
+      }
+    }
     return true;
   }
 
@@ -13,7 +19,8 @@ public class IsStringPalindromic {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "IsStringPalindromic.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }

@@ -472,7 +472,7 @@ problem_mapping = {
                 "total": 10000
             },
             "Java: IsStringPalindromic.java": {
-                "passed": 0,
+                "passed": 10000,
                 "total": 10000
             },
             "Python: is_string_palindromic.py": {
@@ -722,7 +722,7 @@ problem_mapping = {
                 "total": 102
             },
             "Java: IsListCyclic.java": {
-                "passed": 0,
+                "passed": 102,
                 "total": 102
             },
             "Python: is_list_cyclic.py": {
@@ -834,7 +834,7 @@ problem_mapping = {
                 "total": 203
             },
             "Java: IsListPalindromic.java": {
-                "passed": 0,
+                "passed": 203,
                 "total": 203
             },
             "Python: is_list_palindromic.py": {
@@ -1346,7 +1346,7 @@ problem_mapping = {
                 "total": 2000
             },
             "Java: IntSquareRoot.java": {
-                "passed": 0,
+                "passed": 2000,
                 "total": 2000
             },
             "Python: int_square_root.py": {
@@ -1474,7 +1474,7 @@ problem_mapping = {
                 "total": 212
             },
             "Java: IsAnonymousLetterConstructible.java": {
-                "passed": 0,
+                "passed": 212,
                 "total": 212
             },
             "Python: is_anonymous_letter_constructible.py": {
@@ -1630,7 +1630,7 @@ problem_mapping = {
                 "total": 201
             },
             "Java: TwoSortedArraysMerge.java": {
-                "passed": 0,
+                "passed": 201,
                 "total": 201
             },
             "Python: two_sorted_arrays_merge.py": {

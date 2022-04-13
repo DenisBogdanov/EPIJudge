@@ -1,14 +1,33 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 import epi.test_framework.TimedExecutor;
+
 public class IsListCyclic {
 
   public static ListNode<Integer> hasCycle(ListNode<Integer> head) {
-    // TODO - you fill in here.
+    ListNode<Integer> slow = head;
+    ListNode<Integer> fast = head;
+
+    while (fast != null && fast.next != null && fast.next.next != null) {
+      slow = slow.next;
+      fast = fast.next.next;
+
+      if (slow == fast) {
+        slow = head;
+        while (slow != fast) {
+          slow = slow.next;
+          fast = fast.next;
+        }
+        return slow;
+      }
+    }
+
     return null;
   }
+
   @EpiTest(testDataFile = "is_list_cyclic.tsv")
   public static void HasCycleWrapper(TimedExecutor executor,
                                      ListNode<Integer> head, int cycleIdx)
@@ -70,7 +89,8 @@ public class IsListCyclic {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "IsListCyclic.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }
