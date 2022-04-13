@@ -1,17 +1,22 @@
 package epi;
-import epi.test_framework.EpiTest;
-import epi.test_framework.GenericTest;
-import epi.test_framework.TestFailure;
-import epi.test_framework.TestUtils;
-import epi.test_framework.TimedExecutor;
+
+import epi.test_framework.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
 public class AlternatingArray {
-  public static void rearrange(List<Integer> A) {
-    // TODO - you fill in here.
-    return;
+  public static void rearrange(List<Integer> list) {
+    for (int i = 1; i < list.size(); i++) {
+      if ((list.get(i) < list.get(i - 1) && i % 2 == 1)
+          || (list.get(i) > list.get(i - 1) && i % 2 == 0)) {
+
+        Collections.swap(list, i, i - 1);
+      }
+    }
   }
+
   private static void checkOrder(List<Integer> A) throws TestFailure {
     for (int i = 0; i < A.size(); ++i) {
       if ((i % 2) != 0) {
@@ -68,7 +73,8 @@ public class AlternatingArray {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "AlternatingArray.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }
