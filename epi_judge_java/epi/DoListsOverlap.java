@@ -1,4 +1,5 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
@@ -6,18 +7,40 @@ import epi.test_framework.TimedExecutor;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import static epi.DoTerminatedListsOverlap.overlappingNoCycleLists;
+import static epi.IsListCyclic.hasCycle;
+
 public class DoListsOverlap {
 
-  public static ListNode<Integer> overlappingLists(ListNode<Integer> l0,
-                                                   ListNode<Integer> l1) {
-    // TODO - you fill in here.
-    return null;
+  public static ListNode<Integer> overlappingLists(ListNode<Integer> h1,
+                                                   ListNode<Integer> h2) {
+
+    ListNode<Integer> root1 = hasCycle(h1);
+    ListNode<Integer> root2 = hasCycle(h2);
+
+    if (root1 == null && root2 == null) {
+      return overlappingNoCycleLists(h1, h2);
+    } else if (root1 == null || root2 == null) {
+      return null;
+    }
+
+    ListNode<Integer> runner = root2;
+    do {
+      runner = runner.next;
+    } while (runner != root1 && runner != root2);
+
+    if (runner != root1) {
+      return null;
+    }
+
+    return runner;
   }
+
   @EpiTest(testDataFile = "do_lists_overlap.tsv")
-  public static void
-  overlappingListsWrapper(TimedExecutor executor, ListNode<Integer> l0,
-                          ListNode<Integer> l1, ListNode<Integer> common,
-                          int cycle0, int cycle1) throws Exception {
+  public static void overlappingListsWrapper(TimedExecutor executor, ListNode<Integer> l0,
+                                             ListNode<Integer> l1, ListNode<Integer> common,
+                                             int cycle0, int cycle1) throws Exception {
     if (common != null) {
       if (l0 == null) {
         l0 = common;
@@ -83,7 +106,7 @@ public class DoListsOverlap {
         executor.run(() -> overlappingLists(finalL0, finalL1));
 
     if (!((commonNodes.isEmpty() && result == null) ||
-          (result != null && commonNodes.contains(result.data)))) {
+        (result != null && commonNodes.contains(result.data)))) {
       throw new TestFailure("Invalid result");
     }
   }
@@ -92,7 +115,8 @@ public class DoListsOverlap {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "DoListsOverlap.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }

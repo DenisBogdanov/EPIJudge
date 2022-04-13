@@ -736,7 +736,7 @@ problem_mapping = {
                 "total": 106
             },
             "Java: DoTerminatedListsOverlap.java": {
-                "passed": 0,
+                "passed": 106,
                 "total": 106
             },
             "Python: do_terminated_lists_overlap.py": {
@@ -750,7 +750,7 @@ problem_mapping = {
                 "total": 120
             },
             "Java: DoListsOverlap.java": {
-                "passed": 0,
+                "passed": 120,
                 "total": 120
             },
             "Python: do_lists_overlap.py": {
@@ -764,7 +764,7 @@ problem_mapping = {
                 "total": 512
             },
             "Java: DeleteNodeFromList.java": {
-                "passed": 0,
+                "passed": 512,
                 "total": 512
             },
             "Python: delete_node_from_list.py": {
@@ -920,7 +920,7 @@ problem_mapping = {
                 "total": 255
             },
             "Java: DirectoryPathNormalization.java": {
-                "passed": 0,
+                "passed": 255,
                 "total": 255
             },
             "Python: directory_path_normalization.py": {
@@ -1600,7 +1600,7 @@ problem_mapping = {
                 "total": 7
             },
             "Java: CollatzChecker.java": {
-                "passed": 0,
+                "passed": 7,
                 "total": 7
             },
             "Python: collatz_checker.py": {
