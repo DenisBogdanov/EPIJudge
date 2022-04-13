@@ -1,15 +1,25 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 
 import java.util.List;
+
 public class AbsentValueArray {
 
   public static int findMissingElement(Iterable<Integer> stream) {
-    // TODO - you fill in here.
-    return 0;
+    int qty = 0;
+    long sum = 0L;
+
+    for (Integer num : stream) {
+      qty++;
+      sum += num;
+    }
+
+    return (int) ((long) qty * (qty + 1) / 2 - sum);
   }
+
   @EpiTest(testDataFile = "absent_value_array.tsv")
   public static void findMissingElementWrapper(List<Integer> stream)
       throws Exception {
@@ -27,7 +37,8 @@ public class AbsentValueArray {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "AbsentValueArray.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }
