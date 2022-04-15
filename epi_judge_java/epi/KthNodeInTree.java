@@ -1,9 +1,30 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 import epi.test_framework.TimedExecutor;
+
 public class KthNodeInTree {
+  public static BinaryTreeNode<Integer> findKthNodeBinaryTree(BinaryTreeNode<Integer> tree, int k) {
+    BinaryTreeNode<Integer> current = tree;
+
+    while (current != null) {
+      int leftSize = current.left == null ? 0 : current.left.size;
+
+      if (k > leftSize + 1) {
+        current = current.right;
+        k -= (leftSize + 1);
+      } else if (k == leftSize + 1) {
+        return current;
+      } else {
+        current = current.left;
+      }
+    }
+
+    return current;
+  }
+
   public static class BinaryTreeNode<T> extends TreeLike<T, BinaryTreeNode<T>> {
     public T data;
     public BinaryTreeNode<T> left, right;
@@ -34,11 +55,6 @@ public class KthNodeInTree {
   }
 
   public static BinaryTreeNode<Integer>
-  findKthNodeBinaryTree(BinaryTreeNode<Integer> tree, int k) {
-    // TODO - you fill in here.
-    return null;
-  }
-  public static BinaryTreeNode<Integer>
   convertToTreeWithSize(BinaryTree<Integer> original) {
     if (original == null)
       return null;
@@ -68,7 +84,8 @@ public class KthNodeInTree {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "KthNodeInTree.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }

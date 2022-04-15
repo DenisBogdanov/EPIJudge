@@ -1,19 +1,16 @@
 package epi;
-import epi.test_framework.EpiTest;
-import epi.test_framework.EpiTestComparator;
-import epi.test_framework.EpiTestExpectedType;
-import epi.test_framework.EpiUserType;
-import epi.test_framework.GenericTest;
 
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.function.BiPredicate;
+import epi.test_framework.*;
+
+import java.util.*;
+
 public class KClosestStars {
-  @EpiUserType(ctorParams = {double.class, double.class, double.class})
 
+  @EpiUserType(ctorParams = {double.class, double.class, double.class})
   public static class Star implements Comparable<Star> {
-    private double x, y, z;
+    private final double x;
+    private final double y;
+    private final double z;
 
     public Star(double x, double y, double z) {
       this.x = x;
@@ -21,7 +18,9 @@ public class KClosestStars {
       this.z = z;
     }
 
-    public double distance() { return Math.sqrt(x * x + y * y + z * z); }
+    public double distance() {
+      return Math.sqrt(x * x + y * y + z * z);
+    }
 
     @Override
     public int compareTo(Star that) {
@@ -35,15 +34,27 @@ public class KClosestStars {
   }
 
   public static List<Star> findClosestKStars(Iterator<Star> stars, int k) {
-    // TODO - you fill in here.
-    return Collections.emptyList();
+    PriorityQueue<Star> maxHeap = new PriorityQueue<>(k + 1,
+        Comparator.comparingDouble(Star::distance).reversed());
+
+    while (stars.hasNext()) {
+      maxHeap.add(stars.next());
+
+      if (maxHeap.size() == k + 1) {
+        maxHeap.poll();
+      }
+    }
+
+    return new ArrayList<>(maxHeap);
   }
+
   @EpiTest(testDataFile = "k_closest_stars.tsv")
   public static List<Star> findClosestKStarsWrapper(List<Star> stars, int k) {
     return findClosestKStars(stars.iterator(), k);
   }
 
-  @EpiTestExpectedType public static List<Double> expectedType;
+  @EpiTestExpectedType
+  public static List<Double> expectedType;
 
   @EpiTestComparator
   public static boolean comp(List<Double> expected, List<Star> result) {
@@ -63,7 +74,8 @@ public class KClosestStars {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "KClosestStars.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }

@@ -414,7 +414,7 @@ problem_mapping = {
                 "total": 745
             },
             "Java: IsValidSudoku.java": {
-                "passed": 0,
+                "passed": 745,
                 "total": 745
             },
             "Python: is_valid_sudoku.py": {
@@ -570,7 +570,7 @@ problem_mapping = {
                 "total": 40
             },
             "Java: LookAndSay.java": {
-                "passed": 0,
+                "passed": 40,
                 "total": 40
             },
             "Python: look_and_say.py": {
@@ -806,7 +806,7 @@ problem_mapping = {
                 "total": 507
             },
             "Java: ListCyclicRightShift.java": {
-                "passed": 0,
+                "passed": 507,
                 "total": 507
             },
             "Python: list_cyclic_right_shift.py": {
@@ -1104,7 +1104,7 @@ problem_mapping = {
                 "total": 3851
             },
             "Java: KthNodeInTree.java": {
-                "passed": 0,
+                "passed": 3851,
                 "total": 3851
             },
             "Python: kth_node_in_tree.py": {
@@ -1260,7 +1260,7 @@ problem_mapping = {
                 "total": 51
             },
             "Java: KClosestStars.java": {
-                "passed": 0,
+                "passed": 51,
                 "total": 51
             },
             "Python: k_closest_stars.py": {
@@ -1288,7 +1288,7 @@ problem_mapping = {
                 "total": 102
             },
             "Java: KLargestInHeap.java": {
-                "passed": 0,
+                "passed": 102,
                 "total": 102
             },
             "Python: k_largest_in_heap.py": {
@@ -1402,7 +1402,7 @@ problem_mapping = {
                 "total": 503
             },
             "Java: KthLargestInArray.java": {
-                "passed": 0,
+                "passed": 503,
                 "total": 503
             },
             "Python: kth_largest_in_array.py": {
@@ -1558,7 +1558,7 @@ problem_mapping = {
                 "total": 987
             },
             "Java: LongestSubarrayWithDistinctValues.java": {
-                "passed": 0,
+                "passed": 987,
                 "total": 987
             },
             "Python: longest_subarray_with_distinct_values.py": {
@@ -1572,7 +1572,7 @@ problem_mapping = {
                 "total": 203
             },
             "Java: LongestContainedInterval.java": {
-                "passed": 0,
+                "passed": 203,
                 "total": 203
             },
             "Python: longest_contained_interval.py": {
@@ -1644,7 +1644,7 @@ problem_mapping = {
                 "total": 1001
             },
             "Java: HIndex.java": {
-                "passed": 0,
+                "passed": 1001,
                 "total": 1001
             },
             "Python: h_index.py": {
