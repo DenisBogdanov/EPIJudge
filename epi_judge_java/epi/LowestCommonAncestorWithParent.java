@@ -1,16 +1,42 @@
 package epi;
-import epi.test_framework.BinaryTreeUtils;
-import epi.test_framework.EpiTest;
-import epi.test_framework.GenericTest;
-import epi.test_framework.TestFailure;
-import epi.test_framework.TimedExecutor;
+
+import epi.test_framework.*;
+
 public class LowestCommonAncestorWithParent {
 
   public static BinaryTree<Integer> lca(BinaryTree<Integer> node0,
                                         BinaryTree<Integer> node1) {
-    // TODO - you fill in here.
-    return null;
+
+    int depth0 = depth(node0);
+    int depth1 = depth(node1);
+
+    while (depth0 > depth1) {
+      depth0--;
+      node0 = node0.parent;
+    }
+
+    while (depth1 > depth0) {
+      depth1--;
+      node1 = node1.parent;
+    }
+
+    while (node0 != node1) {
+      node1 = node1.parent;
+      node0 = node0.parent;
+    }
+
+    return node0;
   }
+
+  private static int depth(BinaryTree<Integer> node) {
+    int result = 0;
+    while (node.parent != null) {
+      result++;
+      node = node.parent;
+    }
+    return result;
+  }
+
   @EpiTest(testDataFile = "lowest_common_ancestor.tsv")
   public static int lcaWrapper(TimedExecutor executor, BinaryTree<Integer> tree,
                                Integer key0, Integer key1) throws Exception {
@@ -29,7 +55,8 @@ public class LowestCommonAncestorWithParent {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "LowestCommonAncestorWithParent.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }

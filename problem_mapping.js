@@ -330,7 +330,7 @@ problem_mapping = {
                 "total": 2001
             },
             "Java: NextPermutation.java": {
-                "passed": 0,
+                "passed": 2001,
                 "total": 2001
             },
             "Python: next_permutation.py": {
@@ -344,7 +344,7 @@ problem_mapping = {
                 "total": 8
             },
             "Java: OfflineSampling.java": {
-                "passed": 0,
+                "passed": 8,
                 "total": 8
             },
             "Python: offline_sampling.py": {
@@ -400,7 +400,7 @@ problem_mapping = {
                 "total": 10
             },
             "Java: NonuniformRandomNumber.java": {
-                "passed": 0,
+                "passed": 10,
                 "total": 10
             },
             "Python: nonuniform_random_number.py": {
@@ -442,7 +442,7 @@ problem_mapping = {
                 "total": 51
             },
             "Java: MatrixRotation.java": {
-                "passed": 0,
+                "passed": 51,
                 "total": 51
             },
             "Python: matrix_rotation.py": {
@@ -1034,7 +1034,7 @@ problem_mapping = {
                 "total": 948
             },
             "Java: LowestCommonAncestor.java": {
-                "passed": 0,
+                "passed": 948,
                 "total": 948
             },
             "Python: lowest_common_ancestor.py": {
@@ -1048,7 +1048,7 @@ problem_mapping = {
                 "total": 948
             },
             "Java: LowestCommonAncestorWithParent.java": {
-                "passed": 0,
+                "passed": 948,
                 "total": 948
             },
             "Python: lowest_common_ancestor_with_parent.py": {
@@ -1274,7 +1274,7 @@ problem_mapping = {
                 "total": 55
             },
             "Java: OnlineMedian.java": {
-                "passed": 0,
+                "passed": 55,
                 "total": 55
             },
             "Python: online_median.py": {
@@ -1488,7 +1488,7 @@ problem_mapping = {
                 "total": 101
             },
             "Java: LruCache.java": {
-                "passed": 0,
+                "passed": 101,
                 "total": 101
             },
             "Python: lru_cache.py": {
@@ -1502,7 +1502,7 @@ problem_mapping = {
                 "total": 948
             },
             "Java: LowestCommonAncestorCloseAncestor.java": {
-                "passed": 0,
+                "passed": 948,
                 "total": 948
             },
             "Python: lowest_common_ancestor_close_ancestor.py": {
@@ -1516,7 +1516,7 @@ problem_mapping = {
                 "total": 505
             },
             "Java: NearestRepeatedEntries.java": {
-                "passed": 0,
+                "passed": 505,
                 "total": 505
             },
             "Python: nearest_repeated_entries.py": {
@@ -1658,7 +1658,7 @@ problem_mapping = {
                 "total": 202
             },
             "Java: RemoveDuplicates.java": {
-                "passed": 0,
+                "passed": 202,
                 "total": 202
             },
             "Python: remove_duplicates.py": {

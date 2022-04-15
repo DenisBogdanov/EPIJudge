@@ -1,22 +1,33 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 import epi.test_framework.RandomSequenceChecker;
-import epi.test_framework.TestFailure;
 import epi.test_framework.TimedExecutor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 public class NonuniformRandomNumber {
 
-  public static int
-  nonuniformRandomNumberGeneration(List<Integer> values,
-                                   List<Double> probabilities) {
-    // TODO - you fill in here.
-    return 0;
+  public static int nonuniformRandomNumberGeneration(List<Integer> values,
+                                                     List<Double> probabilities) {
+
+    Random rand = new Random();
+    double nextDouble = rand.nextDouble();
+
+    double currentSum = 0.0;
+
+    for (int i = 0; i < values.size(); i++) {
+      if (nextDouble > currentSum && nextDouble < currentSum + probabilities.get(i)) {
+        return values.get(i);
+      }
+      currentSum += probabilities.get(i);
+    }
+
+//    return values.get(values.size() - 1);
+    throw new IllegalArgumentException();
   }
+
   private static boolean nonuniformRandomNumberGenerationRunner(
       TimedExecutor executor, List<Integer> values, List<Double> probabilities)
       throws Exception {
@@ -54,14 +65,15 @@ public class NonuniformRandomNumber {
     RandomSequenceChecker.runFuncWithRetries(
         ()
             -> nonuniformRandomNumberGenerationRunner(executor, values,
-                                                      probabilities));
+            probabilities));
   }
 
   public static void main(String[] args) {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "NonuniformRandomNumber.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }
