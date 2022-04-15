@@ -302,7 +302,7 @@ problem_mapping = {
                 "total": 24
             },
             "Java: PrimeSieve.java": {
-                "passed": 0,
+                "passed": 24,
                 "total": 24
             },
             "Python: prime_sieve.py": {
@@ -358,7 +358,7 @@ problem_mapping = {
                 "total": 7
             },
             "Java: OnlineSampling.java": {
-                "passed": 0,
+                "passed": 7,
                 "total": 7
             },
             "Python: online_sampling.py": {
@@ -372,7 +372,7 @@ problem_mapping = {
                 "total": 6
             },
             "Java: RandomPermutation.java": {
-                "passed": 0,
+                "passed": 6,
                 "total": 6
             },
             "Python: random_permutation.py": {
@@ -386,7 +386,7 @@ problem_mapping = {
                 "total": 9
             },
             "Java: RandomSubset.java": {
-                "passed": 0,
+                "passed": 9,
                 "total": 9
             },
             "Python: random_subset.py": {
@@ -456,7 +456,7 @@ problem_mapping = {
                 "total": 35
             },
             "Java: PascalTriangle.java": {
-                "passed": 0,
+                "passed": 35,
                 "total": 35
             },
             "Python: pascal_triangle.py": {
@@ -848,7 +848,7 @@ problem_mapping = {
                 "total": 208
             },
             "Java: PivotList.java": {
-                "passed": 0,
+                "passed": 208,
                 "total": 208
             },
             "Python: pivot_list.py": {
@@ -976,7 +976,7 @@ problem_mapping = {
                 "total": 65
             },
             "Java: QueueFromStacks.java": {
-                "passed": 0,
+                "passed": 65,
                 "total": 65
             },
             "Python: queue_from_stacks.py": {
@@ -990,7 +990,7 @@ problem_mapping = {
                 "total": 201
             },
             "Java: QueueWithMax.java": {
-                "passed": 0,
+                "passed": 201,
                 "total": 201
             },
             "Python: queue_with_max.py": {
@@ -1076,7 +1076,7 @@ problem_mapping = {
                 "total": 7690
             },
             "Java: PathSum.java": {
-                "passed": 0,
+                "passed": 7690,
                 "total": 7690
             },
             "Python: path_sum.py": {
@@ -1360,7 +1360,7 @@ problem_mapping = {
                 "total": 11003
             },
             "Java: RealSquareRoot.java": {
-                "passed": 0,
+                "passed": 11003,
                 "total": 11003
             },
             "Python: real_square_root.py": {
@@ -1672,7 +1672,7 @@ problem_mapping = {
                 "total": 308
             },
             "Java: SmallestNonconstructibleValue.java": {
-                "passed": 0,
+                "passed": 308,
                 "total": 308
             },
             "Python: smallest_nonconstructible_value.py": {

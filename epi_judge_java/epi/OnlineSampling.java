@@ -1,22 +1,42 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 import epi.test_framework.RandomSequenceChecker;
-import epi.test_framework.TestFailure;
 import epi.test_framework.TimedExecutor;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+
 public class OnlineSampling {
 
   // Assumption: there are at least k elements in the stream.
   public static List<Integer> onlineRandomSample(Iterator<Integer> stream,
                                                  int k) {
-    // TODO - you fill in here.
-    return Collections.emptyList();
+
+    List<Integer> result = new ArrayList<>(k);
+
+    // reading the first k elements
+    for (int i = 0; stream.hasNext() && i < k; i++) {
+      result.add(stream.next());
+    }
+
+    int qtyOfSeenNumbers = k;
+
+    Random rand = new Random();
+
+    while (stream.hasNext()) {
+      Integer next = stream.next();
+      ++qtyOfSeenNumbers;
+
+      final int indexToReplace = rand.nextInt(qtyOfSeenNumbers);
+      if (indexToReplace < k) {
+        result.set(indexToReplace, next);
+      }
+    }
+
+    return result;
   }
+
   private static boolean onlineRandomSampleRunner(TimedExecutor executor,
                                                   List<Integer> A, int k)
       throws Exception {
@@ -58,7 +78,8 @@ public class OnlineSampling {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "OnlineSampling.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }

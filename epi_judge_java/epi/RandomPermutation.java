@@ -1,19 +1,32 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 import epi.test_framework.RandomSequenceChecker;
-import epi.test_framework.TestFailure;
 import epi.test_framework.TimedExecutor;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
+
 public class RandomPermutation {
 
   public static List<Integer> computeRandomPermutation(int n) {
-    // TODO - you fill in here.
-    return Collections.emptyList();
+    List<Integer> list = new ArrayList<>(n);
+    for (int i = 0; i < n; i++) {
+      list.add(i);
+    }
+
+    Random rand = new Random();
+    for (int i = 0; i < n; i++) {
+      int index = rand.nextInt(n - i) + i;
+      Collections.swap(list, i, index);
+    }
+
+    return list;
   }
+
   private static int factorial(int n) {
     return n <= 1 ? 1 : n * factorial(n - 1);
   }
@@ -64,7 +77,8 @@ public class RandomPermutation {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "RandomPermutation.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }

@@ -1,20 +1,48 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 import epi.test_framework.RandomSequenceChecker;
-import epi.test_framework.TestFailure;
 import epi.test_framework.TimedExecutor;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+
 public class RandomSubset {
 
   // Returns a random k-sized subset of {0, 1, ..., n - 1}.
   public static List<Integer> randomSubset(int n, int k) {
-    // TODO - you fill in here.
-    return Collections.emptyList();
+    Random rand = new Random();
+
+    if (k * 2 < n) {
+      List<Integer> list = new ArrayList<>(n);
+      for (int i = 0; i < n; i++) {
+        list.add(i);
+      }
+
+      for (int i = 0; i < k; i++) {
+        int index = rand.nextInt(n - i) + i;
+        Collections.swap(list, i, index);
+      }
+      return list.subList(0, k);
+    } else {
+      List<Integer> result = new ArrayList<>(k);
+      Set<Integer> used = new HashSet<>();
+
+      int tries = k;
+
+      while (tries > 0) {
+        int nextInt = rand.nextInt(n);
+        if (!used.contains(nextInt)) {
+          result.add(nextInt);
+          used.add(nextInt);
+          tries--;
+        }
+      }
+
+      return result;
+    }
   }
+
   private static boolean randomSubsetRunner(TimedExecutor executor, int n,
                                             int k) throws Exception {
     List<List<Integer>> results = new ArrayList<>();
@@ -54,7 +82,8 @@ public class RandomSubset {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "RandomSubset.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }
