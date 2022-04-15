@@ -1,14 +1,30 @@
 package epi;
-import epi.test_framework.EpiTest;
-import epi.test_framework.EpiTestComparator;
-import epi.test_framework.EpiTestExpectedType;
-import epi.test_framework.EpiUserType;
-import epi.test_framework.GenericTest;
+
+import epi.test_framework.*;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.function.BiPredicate;
+
 public class RemoveDuplicates {
+
+  public static void eliminateDuplicate(List<Name> names) {
+    if (names.size() <= 1) return;
+    Collections.sort(names);
+
+    int left = 0;
+    int right = 1;
+
+    while (right < names.size()) {
+      if (!names.get(left).firstName.equals(names.get(right).firstName)) {
+        names.set(++left, names.get(right));
+      }
+
+      right++;
+    }
+
+    names.subList(left + 1, names.size()).clear();
+  }
+
   @EpiUserType(ctorParams = {String.class, String.class})
   //@include
   public static class Name implements Comparable<Name> {
@@ -28,7 +44,7 @@ public class RemoveDuplicates {
       if (this == obj) {
         return true;
       }
-      Name name = (Name)obj;
+      Name name = (Name) obj;
       return firstName.equals(name.firstName) && lastName.equals(name.lastName);
     }
 
@@ -46,10 +62,7 @@ public class RemoveDuplicates {
       return lastName.compareTo(name.lastName);
     }
   }
-  public static void eliminateDuplicate(List<Name> names) {
-    // TODO - you fill in here.
-    return;
-  }
+
   @EpiTest(testDataFile = "remove_duplicates.tsv")
   public static List<Name> eliminateDuplicateWrapper(List<Name> names) {
     eliminateDuplicate(names);
@@ -74,13 +87,15 @@ public class RemoveDuplicates {
     return true;
   }
 
-  @EpiTestExpectedType public static List<String> expectedType;
+  @EpiTestExpectedType
+  public static List<String> expectedType;
 
   public static void main(String[] args) {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "RemoveDuplicates.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }

@@ -1,16 +1,45 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TimedExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class ReplaceAndRemove {
 
-  public static int replaceAndRemove(int size, char[] s) {
-    // TODO - you fill in here.
-    return 0;
+  public static int replaceAndRemove(int size, char[] chars) {
+    int aCount = 0;
+
+    int currentPosition = 0;
+
+    for (int i = 0; i < size; i++) {
+      if (chars[i] == 'a') {
+        aCount++;
+      }
+
+      if (chars[i] != 'b') {
+        chars[currentPosition++] = chars[i];
+      }
+    }
+
+    int finalSize = currentPosition + aCount;
+
+    int indexToInsert = currentPosition - 1 + aCount;
+
+    for (int i = currentPosition - 1; i >= 0; i--) {
+      if (chars[i] == 'a') {
+        chars[indexToInsert--] = 'd';
+        chars[indexToInsert--] = 'd';
+      } else {
+        chars[indexToInsert--] = chars[i];
+      }
+    }
+
+    return finalSize;
   }
+
   @EpiTest(testDataFile = "replace_and_remove.tsv")
   public static List<String>
   replaceAndRemoveWrapper(TimedExecutor executor, Integer size, List<String> s)
@@ -35,7 +64,8 @@ public class ReplaceAndRemove {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "ReplaceAndRemove.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }
