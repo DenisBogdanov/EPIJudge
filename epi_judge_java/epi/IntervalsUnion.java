@@ -1,4 +1,5 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
@@ -7,11 +8,56 @@ import epi.test_framework.TimedExecutor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 public class IntervalsUnion {
 
-  public static class Interval {
+  public static List<Interval> unionOfIntervals(List<Interval> intervals) {
+    if (intervals.size() < 2) return intervals;
+
+    List<Interval> result = new ArrayList<>();
+    Collections.sort(intervals);
+
+    Interval current = intervals.get(0);
+    for (int i = 1; i < intervals.size(); i++) {
+      Interval next = intervals.get(i);
+      if (current.right.val > next.left.val
+          || (current.right.val == next.left.val && (current.right.isClosed || next.left.isClosed))) {
+
+        if (current.right.val < next.right.val
+            || (current.right.val == next.right.val && !current.right.isClosed && next.right.isClosed)) {
+          current.right = next.right;
+        }
+      } else {
+        result.add(current);
+        current = next;
+      }
+    }
+
+    result.add(current);
+
+    return result;
+  }
+
+  public static class Interval implements Comparable<Interval> {
     public Endpoint left = new Endpoint();
     public Endpoint right = new Endpoint();
+
+    @Override
+    public int compareTo(Interval other) {
+      if (left.val != other.left.val) {
+        return left.val - other.left.val;
+      }
+
+      if (left.isClosed && !other.left.isClosed) {
+        return -1;
+      }
+
+      if (!left.isClosed && other.left.isClosed) {
+        return 1;
+      }
+
+      return 0;
+    }
 
     private static class Endpoint {
       public boolean isClosed;
@@ -19,10 +65,6 @@ public class IntervalsUnion {
     }
   }
 
-  public static List<Interval> unionOfIntervals(List<Interval> intervals) {
-    // TODO - you fill in here.
-    return Collections.emptyList();
-  }
   @EpiUserType(
       ctorParams = {int.class, boolean.class, int.class, boolean.class})
   public static class FlatInterval {
@@ -66,7 +108,7 @@ public class IntervalsUnion {
         return false;
       }
 
-      FlatInterval that = (FlatInterval)o;
+      FlatInterval that = (FlatInterval) o;
 
       if (leftVal != that.leftVal) {
         return false;
@@ -118,7 +160,8 @@ public class IntervalsUnion {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "IntervalsUnion.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }
