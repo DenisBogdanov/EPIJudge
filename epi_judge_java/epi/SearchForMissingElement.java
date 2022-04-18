@@ -1,12 +1,43 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
 
 import java.util.List;
-public class SearchForMissingElement {
-  @EpiUserType(ctorParams = {Integer.class, Integer.class})
 
+public class SearchForMissingElement {
+
+  @EpiTest(testDataFile = "find_missing_and_duplicate.tsv")
+  public static DuplicateAndMissing findDuplicateMissing(List<Integer> list) {
+    int missXorDup = 0;
+    for (int i = 0; i < list.size(); i++) {
+      missXorDup ^= i ^ list.get(i);
+    }
+
+    int diffBit = missXorDup & (-missXorDup);
+    int missOrDup = 0;
+
+    for (int i = 0; i < list.size(); i++) {
+      if ((i & diffBit) != 0) {
+        missOrDup ^= i;
+      }
+
+      if ((list.get(i) & diffBit) != 0) {
+        missOrDup ^= list.get(i);
+      }
+    }
+
+    for (int num : list) {
+      if (num == missOrDup) {
+        return new DuplicateAndMissing(missOrDup, missOrDup ^ missXorDup);
+      }
+    }
+
+    return new DuplicateAndMissing(missOrDup ^ missXorDup, missOrDup);
+  }
+
+  @EpiUserType(ctorParams = {Integer.class, Integer.class})
   public static class DuplicateAndMissing {
     public Integer duplicate;
     public Integer missing;
@@ -25,7 +56,7 @@ public class SearchForMissingElement {
         return false;
       }
 
-      DuplicateAndMissing that = (DuplicateAndMissing)o;
+      DuplicateAndMissing that = (DuplicateAndMissing) o;
 
       if (!duplicate.equals(that.duplicate)) {
         return false;
@@ -46,18 +77,12 @@ public class SearchForMissingElement {
     }
   }
 
-  @EpiTest(testDataFile = "find_missing_and_duplicate.tsv")
-
-  public static DuplicateAndMissing findDuplicateMissing(List<Integer> A) {
-    // TODO - you fill in here.
-    return new DuplicateAndMissing(0, 0);
-  }
-
   public static void main(String[] args) {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "SearchForMissingElement.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }

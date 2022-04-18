@@ -612,7 +612,7 @@ problem_mapping = {
                 "total": 500
             },
             "Java: SnakeString.java": {
-                "passed": 0,
+                "passed": 500,
                 "total": 500
             },
             "Python: snake_string.py": {
@@ -1246,7 +1246,7 @@ problem_mapping = {
                 "total": 101
             },
             "Java: SortAlmostSortedArray.java": {
-                "passed": 0,
+                "passed": 101,
                 "total": 101
             },
             "Python: sort_almost_sorted_array.py": {
@@ -1332,7 +1332,7 @@ problem_mapping = {
                 "total": 307
             },
             "Java: SearchShiftedSortedArray.java": {
-                "passed": 0,
+                "passed": 307,
                 "total": 307
             },
             "Python: search_shifted_sorted_array.py": {
@@ -1374,7 +1374,7 @@ problem_mapping = {
                 "total": 194
             },
             "Java: SearchRowColSortedMatrix.java": {
-                "passed": 0,
+                "passed": 194,
                 "total": 194
             },
             "Python: search_row_col_sorted_matrix.py": {
@@ -1388,7 +1388,7 @@ problem_mapping = {
                 "total": 501
             },
             "Java: SearchForMinMaxInArray.java": {
-                "passed": 0,
+                "passed": 501,
                 "total": 501
             },
             "Python: search_for_min_max_in_array.py": {
@@ -1430,7 +1430,7 @@ problem_mapping = {
                 "total": 50
             },
             "Java: SearchForMissingElement.java": {
-                "passed": 0,
+                "passed": 50,
                 "total": 50
             },
             "Python: search_for_missing_element.py": {
@@ -1530,7 +1530,7 @@ problem_mapping = {
                 "total": 904
             },
             "Java: SmallestSubarrayCoveringSet.java": {
-                "passed": 0,
+                "passed": 904,
                 "total": 904
             },
             "Python: smallest_subarray_covering_set.py": {
@@ -1544,7 +1544,7 @@ problem_mapping = {
                 "total": 629
             },
             "Java: SmallestSubarrayCoveringAllValues.java": {
-                "passed": 0,
+                "passed": 629,
                 "total": 629
             },
             "Python: smallest_subarray_covering_all_values.py": {
@@ -1700,7 +1700,7 @@ problem_mapping = {
                 "total": 103
             },
             "Java: IntervalAdd.java": {
-                "passed": 0,
+                "passed": 103,
                 "total": 103
             },
             "Python: interval_add.py": {

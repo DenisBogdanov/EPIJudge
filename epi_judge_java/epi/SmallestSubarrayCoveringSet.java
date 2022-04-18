@@ -1,13 +1,57 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 import epi.test_framework.TimedExecutor;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
 public class SmallestSubarrayCoveringSet {
+
+  public static Subarray findSmallestSubarrayCoveringSet(List<String> paragraph,
+                                                         Set<String> keywords) {
+
+    Map<String, Integer> keywordsToCoverMap = new HashMap<>();
+
+    for (String keyword : keywords) {
+      keywordsToCoverMap.merge(keyword, 1, Integer::sum);
+    }
+
+    Subarray result = new Subarray(-1, -1);
+    var remainingToCover = keywords.size();
+
+    for (int left = 0, right = 0; right < paragraph.size(); right++) {
+      var keywordCount = keywordsToCoverMap.get(paragraph.get(right));
+      if (keywordCount != null) {
+        keywordsToCoverMap.put(paragraph.get(right), --keywordCount);
+        if (keywordCount >= 0) {
+          --remainingToCover;
+        }
+      }
+
+      while (remainingToCover == 0) {
+        if ((result.start == -1 && result.end == -1)
+            || right - left < result.end - result.start) {
+
+          result.start = left;
+          result.end = right;
+        }
+
+        keywordCount = keywordsToCoverMap.get(paragraph.get(left));
+        if (keywordCount != null) {
+          keywordsToCoverMap.put(paragraph.get(left), ++keywordCount);
+          if (keywordCount > 0) {
+            ++remainingToCover;
+          }
+        }
+
+        left++;
+      }
+    }
+
+    return result;
+  }
 
   // Represent subarray by starting and ending indices, inclusive.
   private static class Subarray {
@@ -20,11 +64,6 @@ public class SmallestSubarrayCoveringSet {
     }
   }
 
-  public static Subarray findSmallestSubarrayCoveringSet(List<String> paragraph,
-                                                         Set<String> keywords) {
-    // TODO - you fill in here.
-    return new Subarray(0, 0);
-  }
   @EpiTest(testDataFile = "smallest_subarray_covering_set.tsv")
   public static int findSmallestSubarrayCoveringSetWrapper(
       TimedExecutor executor, List<String> paragraph, Set<String> keywords)
@@ -53,7 +92,8 @@ public class SmallestSubarrayCoveringSet {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "SmallestSubarrayCoveringSet.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }
