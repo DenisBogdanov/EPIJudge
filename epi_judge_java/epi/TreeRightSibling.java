@@ -1,17 +1,21 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TimedExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class TreeRightSibling {
   public static class BinaryTreeNode<T> extends TreeLike<T, BinaryTreeNode<T>> {
     public T data;
     public BinaryTreeNode<T> left, right;
     public BinaryTreeNode<T> next = null; // Populates this field.
 
-    public BinaryTreeNode(T data) { this.data = data; }
+    public BinaryTreeNode(T data) {
+      this.data = data;
+    }
 
     @Override
     public T getData() {
@@ -30,9 +34,27 @@ public class TreeRightSibling {
   }
 
   public static void constructRightSibling(BinaryTreeNode<Integer> tree) {
-    // TODO - you fill in here.
-    return;
+    BinaryTreeNode<Integer> leftStart = tree;
+    while (leftStart != null && leftStart.left != null) {
+      populateLowerLevelNextField(leftStart);
+      leftStart = leftStart.left;
+    }
   }
+
+  private static void populateLowerLevelNextField(BinaryTreeNode<Integer> startNode) {
+    BinaryTreeNode<Integer> runner = startNode;
+
+    while (runner != null) {
+      runner.left.next = runner.right;
+
+      if (runner.next != null) {
+        runner.right.next = runner.next.left;
+      }
+
+      runner = runner.next;
+    }
+  }
+
   private static BinaryTreeNode<Integer>
   cloneTree(BinaryTree<Integer> original) {
     if (original == null) {
@@ -71,7 +93,8 @@ public class TreeRightSibling {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "TreeRightSibling.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }

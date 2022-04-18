@@ -1,18 +1,40 @@
 package epi;
-import epi.test_framework.EpiTest;
-import epi.test_framework.EpiUserType;
-import epi.test_framework.GenericTest;
-import epi.test_framework.TestFailure;
-import epi.test_framework.TimedExecutor;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import epi.test_framework.*;
+
+import java.util.*;
+
 public class GroupEqualEntries {
-  @EpiUserType(ctorParams = {Integer.class, String.class})
 
+  public static void groupByAge(List<Person> people) {
+    Map<Integer, Integer> ageToCountMap = new HashMap<>();
+    for (Person person : people) {
+      ageToCountMap.merge(person.age, 1, Integer::sum);
+    }
+
+    Map<Integer, Integer> ageToOffsetMap = new HashMap<>();
+    int offset = 0;
+    for (Map.Entry<Integer, Integer> ageToCountEntry : ageToCountMap.entrySet()) {
+      ageToOffsetMap.put(ageToCountEntry.getKey(), offset);
+      offset += ageToCountEntry.getValue();
+    }
+
+    while (!ageToOffsetMap.isEmpty()) {
+      Map.Entry<Integer, Integer> from = ageToOffsetMap.entrySet().iterator().next();
+      Integer toAge = people.get(from.getValue()).age;
+      Integer toValue = ageToOffsetMap.get(toAge);
+      Collections.swap(people, from.getValue(), toValue);
+      int count = ageToCountMap.get(toAge) - 1;
+      ageToCountMap.put(toAge, count);
+      if (count > 0) {
+        ageToOffsetMap.put(toAge, toValue + 1);
+      } else {
+        ageToOffsetMap.remove(toAge);
+      }
+    }
+  }
+
+  @EpiUserType(ctorParams = {Integer.class, String.class})
   public static class Person {
     public Integer age;
     public String name;
@@ -29,7 +51,7 @@ public class GroupEqualEntries {
       if (o == null || getClass() != o.getClass())
         return false;
 
-      Person person = (Person)o;
+      Person person = (Person) o;
 
       if (!age.equals(person.age))
         return false;
@@ -43,10 +65,7 @@ public class GroupEqualEntries {
       return result;
     }
   }
-  public static void groupByAge(List<Person> people) {
-    // TODO - you fill in here.
-    return;
-  }
+
   private static Map<Person, Integer> buildMultiset(List<Person> people) {
     Map<Person, Integer> m = new HashMap<>();
     for (Person p : people) {
@@ -87,7 +106,8 @@ public class GroupEqualEntries {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "GroupEqualEntries.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }
