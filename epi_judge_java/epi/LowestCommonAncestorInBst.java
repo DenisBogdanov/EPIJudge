@@ -1,18 +1,19 @@
 package epi;
-import epi.test_framework.BinaryTreeUtils;
-import epi.test_framework.EpiTest;
-import epi.test_framework.GenericTest;
-import epi.test_framework.TestFailure;
-import epi.test_framework.TimedExecutor;
+
+import epi.test_framework.*;
+
 public class LowestCommonAncestorInBst {
 
   // Input nodes are nonempty and the key at s is less than or equal to that at
   // b.
-  public static BstNode<Integer>
-  findLca(BstNode<Integer> tree, BstNode<Integer> s, BstNode<Integer> b) {
-    // TODO - you fill in here.
-    return null;
+  public static BstNode<Integer> findLca(BstNode<Integer> tree, BstNode<Integer> s, BstNode<Integer> b) {
+    if (tree == null) return null;
+    if (tree.data.equals(s.data) || tree.data.equals(b.data)) return tree;
+    if (tree.data > s.data && tree.data < b.data) return tree;
+    if (tree.data > b.data) return findLca(tree.left, s, b);
+    else return findLca(tree.right, s, b);
   }
+
   @EpiTest(testDataFile = "lowest_common_ancestor_in_bst.tsv")
   public static int lcaWrapper(TimedExecutor executor, BstNode<Integer> tree,
                                Integer key0, Integer key1) throws Exception {
@@ -31,7 +32,8 @@ public class LowestCommonAncestorInBst {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "LowestCommonAncestorInBst.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }
