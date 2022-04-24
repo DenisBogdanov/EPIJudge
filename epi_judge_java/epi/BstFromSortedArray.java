@@ -1,23 +1,23 @@
 package epi;
-import epi.test_framework.BinaryTreeUtils;
-import epi.test_framework.EpiTest;
-import epi.test_framework.GenericTest;
-import epi.test_framework.TestFailure;
-import epi.test_framework.TestUtils;
-import epi.test_framework.TimedExecutor;
+
+import epi.test_framework.*;
 
 import java.util.List;
+
 public class BstFromSortedArray {
 
-  public static BstNode<Integer>
-  buildMinHeightBSTFromSortedArray(List<Integer> A) {
-    // TODO - you fill in here.
-    return null;
+  public static BstNode<Integer> buildMinHeightBSTFromSortedArray(List<Integer> list) {
+    if (list.isEmpty()) return null;
+    int mid = list.size() / 2;
+    BstNode<Integer> root = new BstNode<>(list.get(mid));
+    root.left = buildMinHeightBSTFromSortedArray(list.subList(0, mid));
+    root.right = buildMinHeightBSTFromSortedArray(list.subList(mid + 1, list.size()));
+    return root;
   }
+
   @EpiTest(testDataFile = "bst_from_sorted_array.tsv")
-  public static int
-  buildMinHeightBSTFromSortedArrayWrapper(TimedExecutor executor,
-                                          List<Integer> A) throws Exception {
+  public static int buildMinHeightBSTFromSortedArrayWrapper(TimedExecutor executor,
+                                                            List<Integer> A) throws Exception {
     BstNode<Integer> result =
         executor.run(() -> buildMinHeightBSTFromSortedArray(A));
 
@@ -32,7 +32,8 @@ public class BstFromSortedArray {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "BstFromSortedArray.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }

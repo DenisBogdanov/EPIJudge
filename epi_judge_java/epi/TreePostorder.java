@@ -1,8 +1,10 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 
 import java.util.List;
+
 public class TreePostorder {
 
   private static class NodeAndState {
@@ -26,7 +28,8 @@ public class TreePostorder {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "TreePostorder.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }

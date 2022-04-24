@@ -1884,7 +1884,7 @@ problem_mapping = {
                 "total": 13
             },
             "Java: ABSqrt2.java": {
-                "passed": 0,
+                "passed": 13,
                 "total": 13
             },
             "Python: a_b_sqrt2.py": {
@@ -1898,7 +1898,7 @@ problem_mapping = {
                 "total": 87
             },
             "Java: BstFromSortedArray.java": {
-                "passed": 0,
+                "passed": 87,
                 "total": 87
             },
             "Python: bst_from_sorted_array.py": {
@@ -1912,7 +1912,7 @@ problem_mapping = {
                 "total": 958
             },
             "Java: DescendantAndAncestorInBst.java": {
-                "passed": 0,
+                "passed": 958,
                 "total": 958
             },
             "Python: descendant_and_ancestor_in_bst.py": {
@@ -1926,7 +1926,7 @@ problem_mapping = {
                 "total": 954
             },
             "Java: RangeLookupInBst.java": {
-                "passed": 0,
+                "passed": 954,
                 "total": 954
             },
             "Python: range_lookup_in_bst.py": {

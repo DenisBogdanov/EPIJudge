@@ -1,13 +1,35 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
-public class RangeLookupInBst {
-  @EpiUserType(ctorParams = {int.class, int.class})
 
+public class RangeLookupInBst {
+
+  @EpiTest(testDataFile = "range_lookup_in_bst.tsv")
+  public static List<Integer> rangeLookupInBst(BstNode<Integer> tree, Interval interval) {
+    List<Integer> result = new ArrayList<>();
+    helper(tree, interval, result);
+    return result;
+  }
+
+  private static void helper(BstNode<Integer> tree, Interval interval, List<Integer> result) {
+    if (tree == null) return;
+    if (tree.data >= interval.left && tree.data <= interval.right) {
+      helper(tree.left, new Interval(interval.left, tree.data - 1), result);
+      result.add(tree.data);
+      helper(tree.right, new Interval(tree.data + 1, interval.right), result);
+    } else if (tree.data > interval.right) {
+      helper(tree.left, interval, result);
+    } else {
+      helper(tree.right, interval, result);
+    }
+  }
+
+  @EpiUserType(ctorParams = {int.class, int.class})
   public static class Interval {
     public int left, right;
 
@@ -17,13 +39,6 @@ public class RangeLookupInBst {
     }
   }
 
-  @EpiTest(testDataFile = "range_lookup_in_bst.tsv")
-
-  public static List<Integer> rangeLookupInBst(BstNode<Integer> tree,
-                                               Interval interval) {
-    // TODO - you fill in here.
-    return Collections.emptyList();
-  }
   public static void rangeLookupInBstHelper(BstNode<Integer> tree,
                                             Interval interval,
                                             List<Integer> result) {
@@ -46,7 +61,8 @@ public class RangeLookupInBst {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "RangeLookupInBst.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }

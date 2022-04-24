@@ -1,10 +1,12 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 
 import java.util.List;
+
 public class AddingCredits {
 
   public static class ClientsCreditsInfo {
@@ -12,28 +14,34 @@ public class AddingCredits {
       // TODO - you fill in here.
       return;
     }
+
     public boolean remove(String clientID) {
       // TODO - you fill in here.
       return true;
     }
+
     public int lookup(String clientID) {
       // TODO - you fill in here.
       return 0;
     }
+
     public void addAll(int C) {
       // TODO - you fill in here.
       return;
     }
+
     public String max() {
       // TODO - you fill in here.
       return "";
     }
+
     @Override
     public String toString() {
       // TODO - you fill in here.
       return super.toString();
     }
   }
+
   @EpiUserType(ctorParams = {String.class, String.class, int.class})
   public static class Operation {
     public String op;
@@ -55,7 +63,7 @@ public class AddingCredits {
         return false;
       }
 
-      Operation operation = (Operation)o;
+      Operation operation = (Operation) o;
 
       if (iArg != operation.iArg) {
         return false;
@@ -90,31 +98,31 @@ public class AddingCredits {
       int iArg = x.iArg;
       int result;
       switch (x.op) {
-      case "ClientsCreditsInfo":
-        break;
-      case "remove":
-        result = cr.remove(sArg) ? 1 : 0;
-        if (result != iArg) {
-          throw new TestFailure()
-              .withProperty(TestFailure.PropertyName.STATE, cr)
-              .withProperty(TestFailure.PropertyName.COMMAND, x)
-              .withMismatchInfo(opIdx, iArg, result);
-        }
-        break;
-      case "insert":
-        cr.insert(sArg, iArg);
-        break;
-      case "add_all":
-        cr.addAll(iArg);
-        break;
-      case "lookup":
-        result = cr.lookup(sArg);
-        if (result != iArg) {
-          throw new TestFailure()
-              .withProperty(TestFailure.PropertyName.STATE, cr)
-              .withProperty(TestFailure.PropertyName.COMMAND, x)
-              .withMismatchInfo(opIdx, iArg, result);
-        }
+        case "ClientsCreditsInfo":
+          break;
+        case "remove":
+          result = cr.remove(sArg) ? 1 : 0;
+          if (result != iArg) {
+            throw new TestFailure()
+                .withProperty(TestFailure.PropertyName.STATE, cr)
+                .withProperty(TestFailure.PropertyName.COMMAND, x)
+                .withMismatchInfo(opIdx, iArg, result);
+          }
+          break;
+        case "insert":
+          cr.insert(sArg, iArg);
+          break;
+        case "add_all":
+          cr.addAll(iArg);
+          break;
+        case "lookup":
+          result = cr.lookup(sArg);
+          if (result != iArg) {
+            throw new TestFailure()
+                .withProperty(TestFailure.PropertyName.STATE, cr)
+                .withProperty(TestFailure.PropertyName.COMMAND, x)
+                .withMismatchInfo(opIdx, iArg, result);
+          }
       }
       opIdx++;
     }
@@ -124,7 +132,8 @@ public class AddingCredits {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "AddingCredits.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }
