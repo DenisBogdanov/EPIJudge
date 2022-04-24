@@ -2,6 +2,7 @@ package epi;
 
 import epi.test_framework.EpiTest;
 import epi.test_framework.EpiTestComparator;
+import epi.test_framework.GenericTest;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,12 +43,11 @@ public class PhoneNumberMnemonic {
   }
 
   public static void main(String[] args) {
-    System.out.println(phoneMnemonic("22"));
-//    System.exit(
-//        GenericTest
-//            .runFromAnnotations(args, "PhoneNumberMnemonic.java",
-//                new Object() {
-//                }.getClass().getEnclosingClass())
-//            .ordinal());
+    System.exit(
+        GenericTest
+            .runFromAnnotations(args, "PhoneNumberMnemonic.java",
+                new Object() {
+                }.getClass().getEnclosingClass())
+            .ordinal());
   }
 }
