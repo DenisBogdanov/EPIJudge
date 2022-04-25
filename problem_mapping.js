@@ -2026,7 +2026,7 @@ problem_mapping = {
                 "total": 15
             },
             "Java: PowerSet.java": {
-                "passed": 0,
+                "passed": 15,
                 "total": 15
             },
             "Python: power_set.py": {
@@ -2040,7 +2040,7 @@ problem_mapping = {
                 "total": 120
             },
             "Java: Combinations.java": {
-                "passed": 0,
+                "passed": 120,
                 "total": 120
             },
             "Python: combinations.py": {
@@ -2054,7 +2054,7 @@ problem_mapping = {
                 "total": 11
             },
             "Java: EnumerateBalancedParentheses.java": {
-                "passed": 0,
+                "passed": 11,
                 "total": 11
             },
             "Python: enumerate_balanced_parentheses.py": {

@@ -2,6 +2,7 @@ package epi;
 
 import epi.test_framework.EpiTest;
 import epi.test_framework.EpiTestComparator;
+import epi.test_framework.GenericTest;
 import epi.test_framework.LexicographicalListComparator;
 
 import java.util.ArrayList;
@@ -48,11 +49,11 @@ public class Permutations {
 
   public static void main(String[] args) {
     System.out.println(permutations(new ArrayList<>(List.of(1, 2, 3))));
-//    System.exit(
-//        GenericTest
-//            .runFromAnnotations(args, "Permutations.java",
-//                new Object() {
-//                }.getClass().getEnclosingClass())
-//            .ordinal());
+    System.exit(
+        GenericTest
+            .runFromAnnotations(args, "Permutations.java",
+                new Object() {
+                }.getClass().getEnclosingClass())
+            .ordinal());
   }
 }
