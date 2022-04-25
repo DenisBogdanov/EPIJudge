@@ -1,20 +1,37 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 import epi.test_framework.LexicographicalListComparator;
 import epi.test_framework.TimedExecutor;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
+
 public class EnumerateTrees {
 
-  public static List<BinaryTreeNode<Integer>>
-  generateAllBinaryTrees(int numNodes) {
-    // TODO - you fill in here.
-    return Collections.emptyList();
+  public static List<BinaryTreeNode<Integer>> generateAllBinaryTrees(int numNodes) {
+    List<BinaryTreeNode<Integer>> result = new ArrayList<>();
+    if (numNodes == 0) {
+      result.add(null);
+    }
+
+    for (int numLeftTreeNodes = 0; numLeftTreeNodes < numNodes; numLeftTreeNodes++) {
+      int numRightTreeNodes = numNodes - 1 - numLeftTreeNodes;
+      List<BinaryTreeNode<Integer>> leftSubtrees = generateAllBinaryTrees(numLeftTreeNodes);
+      List<BinaryTreeNode<Integer>> rightSubtrees = generateAllBinaryTrees(numRightTreeNodes);
+
+      for (BinaryTreeNode<Integer> leftSubtree : leftSubtrees) {
+        for (BinaryTreeNode<Integer> rightSubtree : rightSubtrees) {
+          result.add(new BinaryTreeNode<>(0, leftSubtree, rightSubtree));
+        }
+      }
+    }
+
+    return result;
   }
+
   public static List<Integer> serializeStructure(BinaryTreeNode<Integer> tree) {
     List<Integer> result = new ArrayList<>();
     Stack<BinaryTreeNode<Integer>> stack = new Stack<>();
@@ -31,8 +48,7 @@ public class EnumerateTrees {
   }
 
   @EpiTest(testDataFile = "enumerate_trees.tsv")
-  public static List<List<Integer>>
-  generateAllBinaryTreesWrapper(TimedExecutor executor, int numNodes)
+  public static List<List<Integer>> generateAllBinaryTreesWrapper(TimedExecutor executor, int numNodes)
       throws Exception {
     List<BinaryTreeNode<Integer>> result =
         executor.run(() -> generateAllBinaryTrees(numNodes));
@@ -49,7 +65,8 @@ public class EnumerateTrees {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "EnumerateTrees.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }
