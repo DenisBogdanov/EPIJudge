@@ -2130,7 +2130,7 @@ problem_mapping = {
                 "total": 1001
             },
             "Java: Fibonacci.java": {
-                "passed": 0,
+                "passed": 46,
                 "total": 46
             },
             "Java: MaxSumSubarray.java": {
