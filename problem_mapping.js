@@ -2222,7 +2222,7 @@ problem_mapping = {
                 "total": 100
             },
             "Java: Knapsack.java": {
-                "passed": 0,
+                "passed": 100,
                 "total": 100
             },
             "Python: knapsack.py": {
@@ -2236,7 +2236,7 @@ problem_mapping = {
                 "total": 41
             },
             "Java: IsStringDecomposableIntoWords.java": {
-                "passed": 0,
+                "passed": 41,
                 "total": 41
             },
             "Python: is_string_decomposable_into_words.py": {
