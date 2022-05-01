@@ -2336,7 +2336,7 @@ problem_mapping = {
                 "total": 500
             },
             "Java: TaskPairing.java": {
-                "passed": 0,
+                "passed": 500,
                 "total": 500
             },
             "Python: task_pairing.py": {
@@ -2350,7 +2350,7 @@ problem_mapping = {
                 "total": 501
             },
             "Java: MinimumWaitingTime.java": {
-                "passed": 0,
+                "passed": 501,
                 "total": 501
             },
             "Python: minimum_waiting_time.py": {

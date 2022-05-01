@@ -1,12 +1,29 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-public class TaskPairing {
-  @EpiUserType(ctorParams = {Integer.class, Integer.class})
 
+public class TaskPairing {
+
+  @EpiTest(testDataFile = "task_pairing.tsv")
+  public static List<PairedTasks> optimumTaskAssignment(List<Integer> taskDurations) {
+    int n = taskDurations.size();
+    List<PairedTasks> result = new ArrayList<>(n / 2);
+    Collections.sort(taskDurations);
+
+    for (int i = 0; i < n / 2; i++) {
+      result.add(new PairedTasks(taskDurations.get(i), taskDurations.get(n - i - 1)));
+    }
+
+    return result;
+  }
+
+  @EpiUserType(ctorParams = {Integer.class, Integer.class})
   public static class PairedTasks {
     public Integer task1;
     public Integer task2;
@@ -25,7 +42,7 @@ public class TaskPairing {
         return false;
       }
 
-      PairedTasks that = (PairedTasks)o;
+      PairedTasks that = (PairedTasks) o;
 
       return task1.equals(that.task1) && task2.equals(that.task2);
     }
@@ -36,19 +53,12 @@ public class TaskPairing {
     }
   }
 
-  @EpiTest(testDataFile = "task_pairing.tsv")
-
-  public static List<PairedTasks>
-  optimumTaskAssignment(List<Integer> taskDurations) {
-    // TODO - you fill in here.
-    return null;
-  }
-
   public static void main(String[] args) {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "TaskPairing.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }
