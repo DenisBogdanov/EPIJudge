@@ -15,13 +15,6 @@ public class LargestRectangleUnderSkyline {
     int result = 0;
 
     for (int i = 0; i <= heights.size(); i++) {
-      if (!indexStack.isEmpty() && i < heights.size()
-          && heights.get(i).equals(heights.get(indexStack.peek()))) {
-
-        indexStack.pop();
-        indexStack.push(i);
-      }
-
       while (!indexStack.isEmpty() && isNewBuildingOrEnd(heights, i, indexStack.peek())) {
         int height = heights.get(indexStack.pop());
         int width = indexStack.isEmpty() ? i : i - indexStack.peek() - 1;
