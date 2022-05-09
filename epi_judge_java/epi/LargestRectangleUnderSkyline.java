@@ -1,21 +1,49 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.List;
-public class LargestRectangleUnderSkyline {
-  @EpiTest(testDataFile = "largest_rectangle_under_skyline.tsv")
 
+public class LargestRectangleUnderSkyline {
+
+  @EpiTest(testDataFile = "largest_rectangle_under_skyline.tsv")
   public static int calculateLargestRectangle(List<Integer> heights) {
-    // TODO - you fill in here.
-    return 0;
+    Deque<Integer> indexStack = new ArrayDeque<>();
+    int result = 0;
+
+    for (int i = 0; i <= heights.size(); i++) {
+      if (!indexStack.isEmpty() && i < heights.size()
+          && heights.get(i).equals(heights.get(indexStack.peek()))) {
+
+        indexStack.pop();
+        indexStack.push(i);
+      }
+
+      while (!indexStack.isEmpty() && isNewBuildingOrEnd(heights, i, indexStack.peek())) {
+        int height = heights.get(indexStack.pop());
+        int width = indexStack.isEmpty() ? i : i - indexStack.peek() - 1;
+        result = Math.max(result, width * height);
+      }
+
+      indexStack.push(i);
+    }
+
+    return result;
+  }
+
+  private static boolean isNewBuildingOrEnd(List<Integer> heights, int currIndex, Integer topBuildingIndex) {
+    return currIndex >= heights.size() || heights.get(currIndex) < heights.get(topBuildingIndex);
   }
 
   public static void main(String[] args) {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "LargestRectangleUnderSkyline.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }
