@@ -17,6 +17,7 @@ public class PrettyPrinting {
     Arrays.fill(minimumMessiness, Integer.MAX_VALUE);
     int numRemainingBlanks = lineLength - words.get(0).length();
     minimumMessiness[0] = numRemainingBlanks * numRemainingBlanks;
+
     for (int i = 1; i < words.size(); ++i) {
       numRemainingBlanks = lineLength - words.get(i).length();
       minimumMessiness[i] =
