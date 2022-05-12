@@ -12,7 +12,7 @@ public class DeadlockDetection {
 
   public static class GraphVertex {
 
-    public enum Color { WHITE, GRAY, BLACK }
+    public enum Color {WHITE, GRAY, BLACK}
 
     public Color color;
 
@@ -41,7 +41,7 @@ public class DeadlockDetection {
     cur.color = GraphVertex.Color.GRAY; // Marks current vertex as a gray one.
     // Traverse the neighbor vertices.
     if (cur.edges.stream().anyMatch(
-            next -> next.color != GraphVertex.Color.BLACK && hasCycle(next))) {
+        next -> next.color != GraphVertex.Color.BLACK && hasCycle(next))) {
       return true;
     }
     cur.color = GraphVertex.Color.BLACK; // Marks current vertex as black.
@@ -84,7 +84,8 @@ public class DeadlockDetection {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "DeadlockDetection.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }

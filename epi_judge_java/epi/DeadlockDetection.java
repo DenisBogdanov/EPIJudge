@@ -1,4 +1,5 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
@@ -6,18 +7,49 @@ import epi.test_framework.TimedExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class DeadlockDetection {
 
+  public static boolean isDeadlocked(List<GraphVertex> graph) {
+    for (GraphVertex currVertex : graph) {
+      if (currVertex.color == GraphVertex.Color.WHITE && hasCycle(currVertex)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private static boolean hasCycle(GraphVertex currVertex) {
+    if (currVertex.color == GraphVertex.Color.GRAY) {
+      return true;
+    }
+
+    currVertex.color = GraphVertex.Color.GRAY;
+    for (GraphVertex neighbour : currVertex.edges) {
+      if (neighbour.color != GraphVertex.Color.BLACK) {
+        if (hasCycle(neighbour)) {
+          return true;
+        }
+      }
+    }
+
+    currVertex.color = GraphVertex.Color.BLACK;
+    return false;
+  }
+
   public static class GraphVertex {
+    public static enum Color {WHITE, GRAY, BLACK}
+
+    Color color;
     public List<GraphVertex> edges;
 
-    public GraphVertex() { edges = new ArrayList<>(); }
+    public GraphVertex() {
+      color = Color.WHITE;
+      edges = new ArrayList<>();
+    }
   }
 
-  public static boolean isDeadlocked(List<GraphVertex> graph) {
-    // TODO - you fill in here.
-    return true;
-  }
   @EpiUserType(ctorParams = {int.class, int.class})
   public static class Edge {
     public int from;
@@ -54,7 +86,8 @@ public class DeadlockDetection {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "DeadlockDetection.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }
