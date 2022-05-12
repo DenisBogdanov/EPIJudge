@@ -1,15 +1,33 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TimedExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class MatrixConnectedRegions {
+  private static final int[][] DIRECTIONS = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
   public static void flipColor(int x, int y, List<List<Boolean>> image) {
-    // TODO - you fill in here.
-    return;
+    boolean initialColor = image.get(x).get(y);
+    image.get(x).set(y, !initialColor);
+
+    for (int[] dir : DIRECTIONS) {
+      int nextRow = x + dir[0];
+      int nextCol = y + dir[1];
+
+      if (nextRow < 0 || nextRow == image.size() || nextCol < 0 || nextCol == image.get(0).size()) {
+        continue;
+      }
+
+      if (image.get(nextRow).get(nextCol) == initialColor) {
+        flipColor(nextRow, nextCol, image);
+      }
+    }
   }
+
   @EpiTest(testDataFile = "painting.tsv")
   public static List<List<Integer>> flipColorWrapper(TimedExecutor executor,
                                                      int x, int y,
@@ -40,7 +58,8 @@ public class MatrixConnectedRegions {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "MatrixConnectedRegions.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }
