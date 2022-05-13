@@ -1,23 +1,65 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TimedExecutor;
 
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
+
 public class MaxTeamsInPhotograph {
+
+  public static int findLargestNumberTeams(List<GraphVertex> graph) {
+    Deque<GraphVertex> orderStack = buildTopologicalOrdering(graph);
+    return findLongestPath(orderStack);
+  }
+
+  private static int findLongestPath(Deque<GraphVertex> orderStack) {
+    int result = 0;
+
+    while (!orderStack.isEmpty()) {
+      GraphVertex popped = orderStack.pop();
+      result = Math.max(result, popped.maxDistance);
+      for (GraphVertex neighbour : popped.edges) {
+        neighbour.maxDistance = Math.max(neighbour.maxDistance, popped.maxDistance + 1);
+      }
+    }
+
+    return result;
+  }
+
+  private static Deque<GraphVertex> buildTopologicalOrdering(List<GraphVertex> graph) {
+    Deque<GraphVertex> orderStack = new LinkedList<>();
+    for (GraphVertex vertex : graph) {
+      if (!vertex.visited) {
+        dfs(vertex, orderStack);
+      }
+    }
+
+    return orderStack;
+  }
+
+  private static void dfs(GraphVertex currVertex, Deque<GraphVertex> order) {
+    currVertex.visited = true;
+    for (GraphVertex neighbour : currVertex.edges) {
+      if (!neighbour.visited) {
+        dfs(neighbour, order);
+      }
+    }
+
+    order.push(currVertex);
+  }
 
   public static class GraphVertex {
     public List<GraphVertex> edges = new ArrayList<>();
     // Set maxDistance = 0 to indicate unvisited vertex.
-    public int maxDistance = 0;
+    public int maxDistance = 1;
+    public boolean visited;
   }
 
-  public static int findLargestNumberTeams(List<GraphVertex> graph) {
-    // TODO - you fill in here.
-    return 0;
-  }
   @EpiUserType(ctorParams = {int.class, int.class})
   public static class Edge {
     public int from;
@@ -54,7 +96,8 @@ public class MaxTeamsInPhotograph {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "MaxTeamsInPhotograph.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }
