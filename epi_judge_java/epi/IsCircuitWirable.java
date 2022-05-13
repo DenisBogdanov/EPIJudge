@@ -1,22 +1,46 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TimedExecutor;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+
 public class IsCircuitWirable {
 
+  public static boolean isAnyPlacementFeasible(List<GraphVertex> graph) {
+    for (GraphVertex vertex : graph) {
+      if (vertex.color != 0) continue;
+
+      Queue<GraphVertex> q = new LinkedList<>();
+      q.offer(vertex);
+      vertex.color = 1;
+
+      while (!q.isEmpty()) {
+        GraphVertex polled = q.poll();
+        for (GraphVertex neighbour : polled.edges) {
+          if (neighbour.color == 0) {
+            neighbour.color = -polled.color;
+            q.offer(neighbour);
+          } else if (neighbour.color == polled.color) {
+            return false;
+          }
+        }
+      }
+    }
+
+    return true;
+  }
+
   public static class GraphVertex {
-    public int d = -1;
+    int color = 0;
     public List<GraphVertex> edges = new ArrayList<>();
   }
 
-  public static boolean isAnyPlacementFeasible(List<GraphVertex> graph) {
-    // TODO - you fill in here.
-    return true;
-  }
   @EpiUserType(ctorParams = {int.class, int.class})
   public static class Edge {
     public int from;
@@ -50,7 +74,8 @@ public class IsCircuitWirable {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "IsCircuitWirable.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }
