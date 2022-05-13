@@ -1,18 +1,37 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
+
 public class GraphClone {
+
+  public static GraphVertex cloneGraph(GraphVertex graph) {
+    if (graph == null) return null;
+
+    Map<GraphVertex, GraphVertex> oldVertexToNewVertexMap = new HashMap<>();
+    oldVertexToNewVertexMap.put(graph, new GraphVertex(graph.label));
+
+    Queue<GraphVertex> q = new ArrayDeque<>();
+    q.add(graph);
+
+    while (!q.isEmpty()) {
+      GraphVertex polled = q.poll();
+      for (GraphVertex neighbour : polled.edges) {
+        if (!oldVertexToNewVertexMap.containsKey(neighbour)) {
+          oldVertexToNewVertexMap.put(neighbour, new GraphVertex(neighbour.label));
+          q.add(neighbour);
+        }
+
+        oldVertexToNewVertexMap.get(polled).edges.add(oldVertexToNewVertexMap.get(neighbour));
+      }
+    }
+
+    return oldVertexToNewVertexMap.get(graph);
+  }
 
   public static class GraphVertex {
     public int label;
@@ -24,10 +43,6 @@ public class GraphClone {
     }
   }
 
-  public static GraphVertex cloneGraph(GraphVertex graph) {
-    // TODO - you fill in here.
-    return new GraphVertex(0);
-  }
   private static List<Integer> copyLabels(List<GraphVertex> edges) {
     List<Integer> labels = new ArrayList<>();
     for (GraphVertex e : edges) {
@@ -52,7 +67,7 @@ public class GraphClone {
         throw new TestFailure("Invalid vertex label");
       }
       List<Integer> label1 = copyLabels(vertex.edges),
-                    label2 = copyLabels(graph.get(vertex.label).edges);
+          label2 = copyLabels(graph.get(vertex.label).edges);
       Collections.sort(label1);
       Collections.sort(label2);
       if (!label1.equals(label2)) {
@@ -102,7 +117,8 @@ public class GraphClone {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "GraphClone.java",
-                                new Object() {}.getClass().getEnclosingClass())
+                new Object() {
+                }.getClass().getEnclosingClass())
             .ordinal());
   }
 }
