@@ -42,15 +42,15 @@ public class MaxTeamsInPhotograph {
     return orderStack;
   }
 
-  private static void dfs(GraphVertex currVertex, Deque<GraphVertex> order) {
+  private static void dfs(GraphVertex currVertex, Deque<GraphVertex> orderStack) {
     currVertex.visited = true;
     for (GraphVertex neighbour : currVertex.edges) {
       if (!neighbour.visited) {
-        dfs(neighbour, order);
+        dfs(neighbour, orderStack);
       }
     }
 
-    order.push(currVertex);
+    orderStack.push(currVertex);
   }
 
   public static class GraphVertex {

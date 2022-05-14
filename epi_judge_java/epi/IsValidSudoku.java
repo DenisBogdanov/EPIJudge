@@ -16,10 +16,28 @@ public class IsValidSudoku {
 
   @EpiTest(testDataFile = "is_valid_sudoku.tsv")
   // Check if a partially filled matrix has any conflicts.
-  public static boolean isValidSudoku(List<List<Integer>> partialAssignment) {
-    return isValidHorizontally(partialAssignment)
-        && isValidVertically(partialAssignment)
-        && validSubGrids(partialAssignment);
+  public static boolean isValidSudoku(List<List<Integer>> grid) {
+//    return isValidHorizontally(grid)
+//        && isValidVertically(grid)
+//        && validSubGrids(grid);
+
+
+    Set<String> seen = new HashSet<>();
+    for (int row = 0; row < grid.size(); row++) {
+      for (int col = 0; col < grid.get(row).size(); col++) {
+        Integer value = grid.get(row).get(col);
+        if (value != null && value != 0) {
+          if (!seen.add(value + " on row=" + row)
+              || !seen.add(value + " on column=" + col)
+              || !seen.add(value + " in the box(" + (row / 3) + "," + (col / 3) + ")")) {
+
+            return false;
+          }
+        }
+      }
+    }
+
+    return true;
   }
 
   private static boolean validSubGrids(List<List<Integer>> partialAssignment) {

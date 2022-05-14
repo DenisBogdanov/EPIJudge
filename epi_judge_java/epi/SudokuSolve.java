@@ -8,7 +8,59 @@ import epi.test_framework.TimedExecutor;
 import java.util.*;
 
 public class SudokuSolve {
+  private static final int EMPTY_ENTRY = 0;
+  private static final int GRID_SIZE = 9;
+  private static final int BOX_SIZE = 3;
+
   public static boolean solveSudoku(List<List<Integer>> partialAssignment) {
+    return solveSudoku(0, 0, partialAssignment);
+  }
+
+  private static boolean solveSudoku(int row, int col, List<List<Integer>> grid) {
+    if (row == GRID_SIZE) {
+      row = 0;  // start a new row
+      if (++col == GRID_SIZE) {
+        return true;
+      }
+    }
+
+    if (grid.get(row).get(col) != EMPTY_ENTRY) {
+      return solveSudoku(row + 1, col, grid);
+    }
+
+    for (int value = 1; value <= GRID_SIZE; value++) {
+      if (validToAddValue(grid, row, col, value)) {
+        grid.get(row).set(col, value);
+        if (solveSudoku(row + 1, col, grid)) {
+          return true;
+        }
+      }
+    }
+
+    grid.get(row).set(col, EMPTY_ENTRY);  // undo
+    return false;
+  }
+
+  private static boolean validToAddValue(List<List<Integer>> grid, int row, int col, int value) {
+    for (List<Integer> elem : grid) {
+      if (value == elem.get(col)) {
+        return false;
+      }
+    }
+
+    for (int c = 0; c < GRID_SIZE; c++) {
+      if (value == grid.get(row).get(c)) {
+        return false;
+      }
+    }
+
+    for (int r = 0; r < BOX_SIZE; r++) {
+      for (int c = 0; c < BOX_SIZE; c++) {
+        if (value == grid.get(row / BOX_SIZE * BOX_SIZE + r).get(col / BOX_SIZE * BOX_SIZE + c)) {
+          return false;
+        }
+      }
+    }
 
     return true;
   }
