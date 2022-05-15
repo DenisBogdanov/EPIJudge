@@ -1,9 +1,15 @@
+from swap_bits import swap_bits
 from test_framework import generic_test
 
 
 def reverse_bits(x: int) -> int:
-    # TODO - you fill in here.
-    return 0
+    left = 0
+    right = 63
+    while left < right:
+        x = swap_bits(x, left, right)
+        left += 1
+        right -= 1
+    return x
 
 
 if __name__ == '__main__':
