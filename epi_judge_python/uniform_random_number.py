@@ -1,4 +1,5 @@
 import functools
+import math
 import random
 
 from test_framework import generic_test
@@ -11,9 +12,20 @@ def zero_one_random():
     return random.randrange(2)
 
 
-def uniform_random(lower_bound: int, upper_bound: int) -> int:
-    # TODO - you fill in here.
-    return 0
+def uniform_random(lower_bound: int, upper_bound: int, num_tosses=-1) -> int:
+    if num_tosses == -1:
+        num_variants = upper_bound - lower_bound + 1
+        num_tosses = math.floor(math.log2(num_variants - 1)) + 1
+
+    result = 0
+    for i in range(num_tosses):
+        result *= 2
+        result += zero_one_random()
+
+    if lower_bound + result > upper_bound:
+        return uniform_random(lower_bound, upper_bound, num_tosses)
+
+    return lower_bound + result
 
 
 @enable_executor_hook
