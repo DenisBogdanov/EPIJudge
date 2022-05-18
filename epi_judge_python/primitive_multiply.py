@@ -2,20 +2,15 @@ from test_framework import generic_test
 
 
 def multiply(x: int, y: int) -> int:
-    if x == 0 or y == 0:
-        return 0
-
     result = 0
 
-    while y > 1:
+    while y:
         if y & 1:
             result += x
-            y -= 1
-        else:
-            x <<= 1
-            y >>= 1
+        x <<= 1
+        y >>= 1
 
-    return result + x
+    return result
 
 
 if __name__ == '__main__':
