@@ -9,8 +9,30 @@ RED, WHITE, BLUE = range(3)
 
 
 def dutch_flag_partition(pivot_index: int, arr: List[int]) -> None:
-    pivot = arr[pivot_index]
+    # initial_solution(arr, pivot_index)
 
+
+    pivot = arr[pivot_index]
+    less = 0
+    equal = 0
+    greater = len(arr)
+
+    while equal < greater:
+        if arr[equal] < pivot:
+            arr[less], arr[equal] = arr[equal], arr[less]
+            less += 1
+            equal += 1
+        elif arr[equal] == pivot:
+            equal += 1
+        else:
+            greater -= 1
+            arr[greater], arr[equal] = arr[equal], arr[greater]
+
+
+
+
+def initial_solution(arr, pivot_index):
+    pivot = arr[pivot_index]
     index = 0
     less_index = 0
     while index < len(arr):
@@ -19,7 +41,6 @@ def dutch_flag_partition(pivot_index: int, arr: List[int]) -> None:
                 arr[index], arr[less_index] = arr[less_index], arr[index]
             less_index += 1
         index += 1
-
     index = len(arr) - 1
     greater_index = index
     while index >= 0 and arr[index] >= pivot:
@@ -28,7 +49,6 @@ def dutch_flag_partition(pivot_index: int, arr: List[int]) -> None:
                 arr[index], arr[greater_index] = arr[greater_index], arr[index]
             greater_index -= 1
         index -= 1
-
 
 
 @enable_executor_hook
