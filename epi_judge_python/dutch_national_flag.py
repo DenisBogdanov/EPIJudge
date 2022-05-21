@@ -14,19 +14,19 @@ def dutch_flag_partition(pivot_index: int, arr: List[int]) -> None:
 
     pivot = arr[pivot_index]
     less = 0
-    equal = 0
+    index = 0
     greater = len(arr)
 
-    while equal < greater:
-        if arr[equal] < pivot:
-            arr[less], arr[equal] = arr[equal], arr[less]
+    while index < greater:
+        if arr[index] < pivot:
+            arr[less], arr[index] = arr[index], arr[less]
             less += 1
-            equal += 1
-        elif arr[equal] == pivot:
-            equal += 1
+            index += 1
+        elif arr[index] == pivot:
+            index += 1
         else:
             greater -= 1
-            arr[greater], arr[equal] = arr[equal], arr[greater]
+            arr[greater], arr[index] = arr[index], arr[greater]
 
 
 
