@@ -6,9 +6,12 @@ from test_framework.test_failure import PropertyName, TestFailure
 from test_framework.test_utils import enable_executor_hook
 
 
-def rearrange(A: List[int]) -> None:
-    # TODO - you fill in here.
-    return
+def rearrange(arr: List[int]) -> None:
+    for i in range(len(arr) - 1):
+        if i % 2 == 0:
+            arr[i], arr[i + 1] = min(arr[i], arr[i + 1]), max(arr[i], arr[i + 1])
+        else:
+            arr[i], arr[i + 1] = max(arr[i], arr[i + 1]), min(arr[i], arr[i + 1])
 
 
 @enable_executor_hook
@@ -19,27 +22,27 @@ def rearrange_wrapper(executor, A):
                 if A[i] < A[i - 1]:
                     raise TestFailure().with_property(
                         PropertyName.RESULT, A).with_mismatch_info(
-                            i, 'A[{}] <= A[{}]'.format(i - 1, i),
-                            '{} > {}'.format(A[i - 1], A[i]))
+                        i, 'A[{}] <= A[{}]'.format(i - 1, i),
+                        '{} > {}'.format(A[i - 1], A[i]))
                 if i + 1 < len(A):
                     if A[i] < A[i + 1]:
                         raise TestFailure().with_property(
                             PropertyName.RESULT, A).with_mismatch_info(
-                                i, 'A[{}] >= A[{}]'.format(i, i + 1),
-                                '{} < {}'.format(A[i], A[i + 1]))
+                            i, 'A[{}] >= A[{}]'.format(i, i + 1),
+                            '{} < {}'.format(A[i], A[i + 1]))
             else:
                 if i > 0:
                     if A[i - 1] < A[i]:
                         raise TestFailure().with_property(
                             PropertyName.RESULT, A).with_mismatch_info(
-                                i, 'A[{}] >= A[{}]'.format(i - 1, i),
-                                '{} < {}'.format(A[i - 1], A[i]))
+                            i, 'A[{}] >= A[{}]'.format(i - 1, i),
+                            '{} < {}'.format(A[i - 1], A[i]))
                 if i + 1 < len(A):
                     if A[i + 1] < A[i]:
                         raise TestFailure().with_property(
                             PropertyName.RESULT, A).with_mismatch_info(
-                                i, 'A[{}] <= A[{}]'.format(i, i + 1),
-                                '{} > {}'.format(A[i], A[i + 1]))
+                            i, 'A[{}] <= A[{}]'.format(i, i + 1),
+                            '{} > {}'.format(A[i], A[i + 1]))
 
     executor.run(functools.partial(rearrange, A))
     check_answer(A)
