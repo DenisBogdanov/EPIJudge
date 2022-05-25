@@ -6,9 +6,15 @@ from test_framework.test_utils import enable_executor_hook
 
 
 # Returns the number of valid entries after deletion.
-def delete_duplicates(A: List[int]) -> int:
-    # TODO - you fill in here.
-    return 0
+def delete_duplicates(arr: List[int]) -> int:
+    unique_index = 1
+
+    for i in range(1, len(arr)):
+        if arr[i] != arr[i - 1]:
+            arr[unique_index] = arr[i]
+            unique_index += 1
+
+    return unique_index
 
 
 @enable_executor_hook
