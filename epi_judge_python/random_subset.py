@@ -1,5 +1,7 @@
 import functools
+import random
 from typing import List
+from online_sampling import online_random_sample
 
 from test_framework import generic_test
 from test_framework.random_sequence_checker import (
@@ -9,8 +11,12 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def random_subset(n: int, k: int) -> List[int]:
-    # TODO - you fill in here.
-    return []
+    result = online_random_sample(iter(range(n)), k)
+    for i in range(k):
+        random_index = random.randint(i, k - 1)
+        result[i], result[random_index] = result[random_index], result[i]
+
+    return result
 
 
 @enable_executor_hook
