@@ -1,4 +1,4 @@
-import functools
+import functools, random
 from typing import List
 
 from test_framework import generic_test
@@ -8,9 +8,11 @@ from test_framework.random_sequence_checker import (
 from test_framework.test_utils import enable_executor_hook
 
 
-def random_sampling(k: int, A: List[int]) -> None:
-    # TODO - you fill in here.
-    return
+def random_sampling(k: int, arr: List[int]) -> None:
+    last_index = len(arr) - 1
+    for i in range(len(arr)):
+        random_index = random.randint(i, last_index)
+        arr[i], arr[random_index] = arr[random_index], arr[i]
 
 
 @enable_executor_hook
