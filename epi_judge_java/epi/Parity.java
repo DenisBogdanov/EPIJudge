@@ -7,14 +7,14 @@ public class Parity {
 
     @EpiTest(testDataFile = "parity.tsv")
     public static short parity(long x) {
-        short result = 0;
+        x ^= x >>> 32;
+        x ^= x >>> 16;
+        x ^= x >>> 8;
+        x ^= x >>> 4;
+        x ^= x >>> 2;
+        x ^= x >>> 1;
 
-        while (x > 0) {
-            result ^= 1;
-            x &= (x - 1);
-        }
-
-        return result;
+        return (short) (x & 1);
     }
 
     public static void main(String[] args) {
