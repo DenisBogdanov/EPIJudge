@@ -22,28 +22,30 @@ public class PrimitiveMultiply {
     }
 
     private static long add(long a, long b) {
-        long sum = 0;
-        long carryIn = 0;
-
-        long currentBitMask = 1;
-
         long aCopy = a;
         long bCopy = b;
 
+        long carryIn = 0;
+        long result = 0;
+
+        int currBit = 1;
+
         while (aCopy != 0 || bCopy != 0) {
-            long aCurr = a & currentBitMask;
-            long bCurr = b & currentBitMask;
+            long aCurr = a & currBit;
+            long bCurr = b & currBit;
 
             long carryOut = (aCurr & bCurr) | (aCurr & carryIn) | (bCurr & carryIn);
-            sum |= (aCurr ^ bCurr ^ carryIn);
-            carryIn = carryOut << 1;
-            currentBitMask <<= 1;
 
+            result |= (aCurr ^ bCurr ^ carryIn);
+            carryIn = carryOut << 1;
+
+            currBit <<= 1;
             aCopy >>>= 1;
             bCopy >>>= 1;
         }
 
-        return sum | carryIn;
+
+        return result | carryIn;
     }
 
     public static void main(String[] args) {
