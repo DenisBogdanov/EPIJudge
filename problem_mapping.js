@@ -2068,7 +2068,7 @@ problem_mapping = {
                 "total": 522
             },
             "Java: EnumeratePalindromicDecompositions.java": {
-                "passed": 0,
+                "passed": 522,
                 "total": 522
             },
             "Python: enumerate_palindromic_decompositions.py": {
