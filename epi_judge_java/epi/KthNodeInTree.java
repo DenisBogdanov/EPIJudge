@@ -1,74 +1,89 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 import epi.test_framework.TimedExecutor;
+
+
 public class KthNodeInTree {
-  public static class BinaryTreeNode<T> extends TreeLike<T, BinaryTreeNode<T>> {
-    public T data;
-    public BinaryTreeNode<T> left, right;
-    public int size;
-
-    public BinaryTreeNode(T data, BinaryTreeNode<T> left,
-                          BinaryTreeNode<T> right, int size) {
-      this.data = data;
-      this.left = left;
-      this.right = right;
-      this.size = size;
+    public static BinaryTreeNode<Integer> findKthNodeBinaryTree(BinaryTreeNode<Integer> tree, int k) {
+        if (tree == null || k > tree.size) return null;
+        if (tree.left == null) {
+            if (k == 1) return tree;
+            return findKthNodeBinaryTree(tree.right, k - 1);
+        } else {
+            if (tree.left.size < k - 1) return findKthNodeBinaryTree(tree.right, k - tree.left.size - 1);
+            else if (tree.left.size == k - 1) return tree;
+            else return findKthNodeBinaryTree(tree.left, k);
+        }
     }
 
-    @Override
-    public T getData() {
-      return data;
+    private static BinaryTreeNode<Integer> helper(BinaryTreeNode<Integer> tree, int k, int shift) {
+        return null;
     }
 
-    @Override
-    public BinaryTreeNode<T> getLeft() {
-      return left;
+    public static class BinaryTreeNode<T> extends TreeLike<T, BinaryTreeNode<T>> {
+        public T data;
+        public BinaryTreeNode<T> left, right;
+        public int size;
+
+        public BinaryTreeNode(T data, BinaryTreeNode<T> left,
+                              BinaryTreeNode<T> right, int size) {
+            this.data = data;
+            this.left = left;
+            this.right = right;
+            this.size = size;
+        }
+
+        @Override
+        public T getData() {
+            return data;
+        }
+
+        @Override
+        public BinaryTreeNode<T> getLeft() {
+            return left;
+        }
+
+        @Override
+        public BinaryTreeNode<T> getRight() {
+            return right;
+        }
     }
 
-    @Override
-    public BinaryTreeNode<T> getRight() {
-      return right;
+    public static BinaryTreeNode<Integer>
+    convertToTreeWithSize(BinaryTree<Integer> original) {
+        if (original == null)
+            return null;
+        BinaryTreeNode<Integer> left = convertToTreeWithSize(original.left);
+        BinaryTreeNode<Integer> right = convertToTreeWithSize(original.right);
+        int lSize = left == null ? 0 : left.size;
+        int rSize = right == null ? 0 : right.size;
+        return new BinaryTreeNode<>(original.data, left, right, 1 + lSize + rSize);
     }
-  }
 
-  public static BinaryTreeNode<Integer>
-  findKthNodeBinaryTree(BinaryTreeNode<Integer> tree, int k) {
-    // TODO - you fill in here.
-    return null;
-  }
-  public static BinaryTreeNode<Integer>
-  convertToTreeWithSize(BinaryTree<Integer> original) {
-    if (original == null)
-      return null;
-    BinaryTreeNode<Integer> left = convertToTreeWithSize(original.left);
-    BinaryTreeNode<Integer> right = convertToTreeWithSize(original.right);
-    int lSize = left == null ? 0 : left.size;
-    int rSize = right == null ? 0 : right.size;
-    return new BinaryTreeNode<>(original.data, left, right, 1 + lSize + rSize);
-  }
+    @EpiTest(testDataFile = "kth_node_in_tree.tsv")
+    public static int findKthNodeBinaryTreeWrapper(TimedExecutor executor,
+                                                   BinaryTree<Integer> tree,
+                                                   int k) throws Exception {
+        BinaryTreeNode<Integer> converted = convertToTreeWithSize(tree);
 
-  @EpiTest(testDataFile = "kth_node_in_tree.tsv")
-  public static int findKthNodeBinaryTreeWrapper(TimedExecutor executor,
-                                                 BinaryTree<Integer> tree,
-                                                 int k) throws Exception {
-    BinaryTreeNode<Integer> converted = convertToTreeWithSize(tree);
+        BinaryTreeNode<Integer> result =
+                executor.run(() -> findKthNodeBinaryTree(converted, k));
 
-    BinaryTreeNode<Integer> result =
-        executor.run(() -> findKthNodeBinaryTree(converted, k));
-
-    if (result == null) {
-      throw new TestFailure("Result can't be null");
+        if (result == null) {
+            throw new TestFailure("Result can't be null");
+        }
+        return result.data;
     }
-    return result.data;
-  }
 
-  public static void main(String[] args) {
-    System.exit(
-        GenericTest
-            .runFromAnnotations(args, "KthNodeInTree.java",
-                                new Object() {}.getClass().getEnclosingClass())
-            .ordinal());
-  }
+    public static void main(String[] args) {
+        System.exit(
+                GenericTest
+                        .runFromAnnotations(args, "KthNodeInTree.java",
+                                new Object() {
+                                }.getClass().getEnclosingClass())
+                        .ordinal());
+    }
 }
