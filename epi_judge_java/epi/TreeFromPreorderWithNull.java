@@ -12,7 +12,27 @@ import java.util.List;
 public class TreeFromPreorderWithNull {
     private static final BinaryTreeNode<Integer> FAKE = new BinaryTreeNode<>(-1);
 
+    private static int index = 0;
+
     public static BinaryTreeNode<Integer> reconstructPreorder(List<Integer> preorder) {
+//        return initialSolution(preorder);
+
+        index = 0;
+        return helper(preorder);
+    }
+
+    private static BinaryTreeNode<Integer> helper(List<Integer> preorder) {
+        Integer value = preorder.get(index);
+        index++;
+        if (value == null) return null;
+
+        var left = helper(preorder);
+        var right = helper(preorder);
+
+        return new BinaryTreeNode<>(value, left, right);
+    }
+
+    private static BinaryTreeNode<Integer> initialSolution(List<Integer> preorder) {
         if (preorder.isEmpty()) return null;
         if (preorder.get(0) == null) return null;
 
