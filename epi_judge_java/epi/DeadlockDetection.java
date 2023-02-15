@@ -13,10 +13,11 @@ import java.util.Set;
 public class DeadlockDetection {
 
     public static boolean isDeadlocked(List<GraphVertex> graph) {
-        Set<GraphVertex> seen = new HashSet<>();
+        Set<GraphVertex> seenLocally = new HashSet<>();
+        Set<GraphVertex> seenGlobally = new HashSet<>();
 
         for (GraphVertex currVertex : graph) {
-            if (hasCycleDfs(currVertex, seen)) {
+            if (!seenGlobally.contains(currVertex) && hasCycleDfs(currVertex, seenLocally, seenGlobally)) {
                 return true;
             }
         }
@@ -24,10 +25,11 @@ public class DeadlockDetection {
         return false;
     }
 
-    private static boolean hasCycleDfs(GraphVertex currVertex, Set<GraphVertex> seen) {
+    private static boolean hasCycleDfs(GraphVertex currVertex, Set<GraphVertex> seen, Set<GraphVertex> seenGlobally) {
         seen.add(currVertex);
+        seenGlobally.add(currVertex);
         for (GraphVertex edge : currVertex.edges) {
-            if (seen.contains(edge) || hasCycleDfs(edge, seen)) {
+            if (seen.contains(edge) || hasCycleDfs(edge, seen, seenGlobally)) {
                 return true;
             }
         }
