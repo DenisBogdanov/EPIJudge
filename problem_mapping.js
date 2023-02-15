@@ -878,7 +878,7 @@ problem_mapping = {
                 "total": 101
             },
             "Java: StackWithMax.java": {
-                "passed": 0,
+                "passed": 101,
                 "total": 101
             },
             "Python: stack_with_max.py": {
