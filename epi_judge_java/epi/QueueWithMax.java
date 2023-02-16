@@ -6,35 +6,41 @@ import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 
 import java.util.ArrayDeque;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Queue;
-import java.util.TreeMap;
 
 public class QueueWithMax {
     private final Queue<Integer> q = new ArrayDeque<>();
-    private final TreeMap<Integer, Integer> numToCountMap = new TreeMap<>((a, b) -> b - a);
+    private final LinkedList<Integer> maxCandidates = new LinkedList<>();
 
     public void enqueue(Integer x) {
         q.offer(x);
-        numToCountMap.merge(x, 1, Integer::sum);
+
+        while (!maxCandidates.isEmpty()) {
+            if (maxCandidates.getLast() < x) {
+                maxCandidates.removeLast();
+            } else {
+                break;
+            }
+        }
+
+        maxCandidates.add(x);
     }
 
     public Integer dequeue() {
         Integer polled = q.poll();
 
-        Integer count = numToCountMap.get(polled);
-        if (count == 1) {
-            numToCountMap.remove(polled);
-        } else {
-            numToCountMap.put(polled, count - 1);
+        if (maxCandidates.getFirst().equals(polled)) {
+            maxCandidates.removeFirst();
         }
 
         return polled;
     }
 
     public Integer max() {
-        return numToCountMap.firstKey();
+        return maxCandidates.getFirst();
     }
 
     @EpiUserType(ctorParams = {String.class, int.class})
