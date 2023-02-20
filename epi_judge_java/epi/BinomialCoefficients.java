@@ -7,7 +7,7 @@ public class BinomialCoefficients {
 
     @EpiTest(testDataFile = "binomial_coefficients.tsv")
     public static int computeBinomialCoefficient(int n, int k) {
-        if (n == k || n == 0 || k == 0) return 1;
+        if (n == k) return 1;
 
         int[][] pascalTriangular = new int[n + 1][k + 1];
         pascalTriangular[0][0] = 1;
