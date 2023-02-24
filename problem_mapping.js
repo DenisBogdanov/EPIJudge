@@ -1912,7 +1912,7 @@ problem_mapping = {
                 "total": 958
             },
             "Java: DescendantAndAncestorInBst.java": {
-                "passed": 0,
+                "passed": 958,
                 "total": 958
             },
             "Python: descendant_and_ancestor_in_bst.py": {
