@@ -1926,7 +1926,7 @@ problem_mapping = {
                 "total": 954
             },
             "Java: RangeLookupInBst.java": {
-                "passed": 0,
+                "passed": 954,
                 "total": 954
             },
             "Python: range_lookup_in_bst.py": {
