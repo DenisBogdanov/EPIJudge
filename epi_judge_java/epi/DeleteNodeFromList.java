@@ -8,17 +8,8 @@ public class DeleteNodeFromList {
 
     // Assumes nodeToDelete is not tail.
     public static void deletionFromList(ListNode<Integer> nodeToDelete) {
-        ListNode<Integer> runner = nodeToDelete;
-        while (true) {
-            runner.data = runner.next.data;
-
-            if (runner.next.next == null) {
-                runner.next = null;
-                return;
-            }
-
-            runner = runner.next;
-        }
+        nodeToDelete.data = nodeToDelete.next.data;
+        nodeToDelete.next = nodeToDelete.next.next;
     }
 
     @EpiTest(testDataFile = "delete_node_from_list.tsv")
