@@ -6,11 +6,9 @@ import epi.test_framework.GenericTest;
 import java.util.Objects;
 
 public class IsListPalindromic {
-    private static int testId = 0;
 
     @EpiTest(testDataFile = "is_list_palindromic.tsv")
     public static boolean isLinkedListAPalindrome(ListNode<Integer> list) {
-        testId++;
         if (list == null || list.next == null) return true;
 
         var slow = list;
