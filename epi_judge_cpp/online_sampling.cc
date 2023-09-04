@@ -2,59 +2,79 @@
 #include <functional>
 #include <iterator>
 #include <vector>
+#include <random>
 
 #include "test_framework/generic_test.h"
 #include "test_framework/random_sequence_checker.h"
 #include "test_framework/timed_executor.h"
-using std::bind;
-using std::sort;
-using std::vector;
+
+using namespace std;
+
 // Assumption: there are at least k elements in the stream.
 vector<int> OnlineRandomSample(vector<int>::const_iterator stream_begin,
                                const vector<int>::const_iterator stream_end,
                                int k) {
-  // TODO - you fill in here.
-  return {};
+
+    vector<int> result;
+    for (int i = 0; i < k; ++i) {
+        result.push_back(*stream_begin++);
+    }
+
+    default_random_engine seed((random_device()) ());
+    int seenSoFar = k;
+
+    while (stream_begin != stream_end) {
+        int nextNum = *stream_begin++;
+        seenSoFar++;
+
+        int randomIndex = uniform_int_distribution<int>{0, seenSoFar - 1}(seed);
+        if (randomIndex < k) {
+            result[randomIndex] = nextNum;
+        }
+    }
+
+    return result;
 }
-bool OnlineRandomSamplingRunner(TimedExecutor& executor, vector<int> stream,
+
+bool OnlineRandomSamplingRunner(TimedExecutor &executor, vector<int> stream,
                                 int k) {
-  using namespace test_framework;
-  vector<vector<int>> results;
+    using namespace test_framework;
+    vector<vector<int>> results;
 
-  executor.Run([&] {
-    std::generate_n(
-        back_inserter(results), 100000,
-        std::bind(OnlineRandomSample, cbegin(stream), cend(stream), k));
-  });
+    executor.Run([&] {
+        std::generate_n(
+                back_inserter(results), 100000,
+                std::bind(OnlineRandomSample, cbegin(stream), cend(stream), k));
+    });
 
-  int total_possible_outcomes = BinomialCoefficient(stream.size(), k);
-  sort(begin(stream), end(stream));
-  vector<vector<int>> combinations;
-  for (int i = 0; i < BinomialCoefficient(stream.size(), k); ++i) {
-    combinations.emplace_back(
-        ComputeCombinationIdx(stream, stream.size(), k, i));
-  }
-  vector<int> sequence;
-  for (vector<int> result : results) {
-    sort(begin(result), end(result));
-    sequence.emplace_back(
-        distance(begin(combinations),
-                 find(begin(combinations), end(combinations), result)));
-  }
-  return CheckSequenceIsUniformlyRandom(sequence, total_possible_outcomes,
-                                        0.01);
+    int total_possible_outcomes = BinomialCoefficient(stream.size(), k);
+    sort(begin(stream), end(stream));
+    vector<vector<int>> combinations;
+    for (int i = 0; i < BinomialCoefficient(stream.size(), k); ++i) {
+        combinations.emplace_back(
+                ComputeCombinationIdx(stream, stream.size(), k, i));
+    }
+    vector<int> sequence;
+    for (vector<int> result: results) {
+        sort(begin(result), end(result));
+        sequence.emplace_back(
+                distance(begin(combinations),
+                         find(begin(combinations), end(combinations), result)));
+    }
+    return CheckSequenceIsUniformlyRandom(sequence, total_possible_outcomes,
+                                          0.01);
 }
 
-void OnlineRandomSampleWrapper(TimedExecutor& executor,
-                               const vector<int>& stream, int k) {
-  RunFuncWithRetries(bind(OnlineRandomSamplingRunner, std::ref(executor),
-                          std::cref(stream), k));
+void OnlineRandomSampleWrapper(TimedExecutor &executor,
+                               const vector<int> &stream, int k) {
+    RunFuncWithRetries(bind(OnlineRandomSamplingRunner, std::ref(executor),
+                            std::cref(stream), k));
 }
 
-int main(int argc, char* argv[]) {
-  std::vector<std::string> args{argv + 1, argv + argc};
-  std::vector<std::string> param_names{"executor", "stream", "k"};
-  return GenericTestMain(args, "online_sampling.cc", "online_sampling.tsv",
-                         &OnlineRandomSampleWrapper, DefaultComparator{},
-                         param_names);
+int main(int argc, char *argv[]) {
+    std::vector<std::string> args{argv + 1, argv + argc};
+    std::vector<std::string> param_names{"executor", "stream", "k"};
+    return GenericTestMain(args, "online_sampling.cc", "online_sampling.tsv",
+                           &OnlineRandomSampleWrapper, DefaultComparator{},
+                           param_names);
 }
