@@ -916,7 +916,7 @@ problem_mapping = {
         },
         "8.04 Normalize pathnames": {
             "C++: directory_path_normalization.cc": {
-                "passed": 0,
+                "passed": 255,
                 "total": 255
             },
             "Java: DirectoryPathNormalization.java": {
