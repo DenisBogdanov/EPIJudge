@@ -9,10 +9,6 @@ public class MinimumWaitingTime {
 
     @EpiTest(testDataFile = "minimum_waiting_time.tsv")
     public static int minimumTotalWaitingTime(List<Integer> serviceTimes) {
-        // 1  2  3  5
-        // 3 x 1 + 2 x 2 + 1 x 3
-        // 0  1  3  6
-
         serviceTimes.sort(null);
         int waitingTime = 0;
         int n = serviceTimes.size();
