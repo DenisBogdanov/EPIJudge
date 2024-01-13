@@ -16,7 +16,6 @@ public class LargestRectangleUnderSkyline {
         Deque<Integer> indicesStack = new ArrayDeque<>();
         for (int i = 0; i < heights.size(); i++) {
             while (!indicesStack.isEmpty() && heights.get(indicesStack.peek()) >= heights.get(i)) {
-
                 Integer popped = indicesStack.pop();
                 int height = heights.get(popped);
                 int width;
