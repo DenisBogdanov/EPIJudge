@@ -2446,7 +2446,7 @@ problem_mapping = {
                 "total": 1004
             },
             "Java: LargestRectangleUnderSkyline.java": {
-                "passed": 0,
+                "passed": 1,
                 "total": 1004
             },
             "Python: largest_rectangle_under_skyline.py": {
