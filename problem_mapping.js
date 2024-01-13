@@ -2350,7 +2350,7 @@ problem_mapping = {
                 "total": 501
             },
             "Java: MinimumWaitingTime.java": {
-                "passed": 0,
+                "passed": 501,
                 "total": 501
             },
             "Python: minimum_waiting_time.py": {
