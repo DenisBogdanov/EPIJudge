@@ -11,14 +11,39 @@ public class LargestRectangleUnderSkyline {
 
     @EpiTest(testDataFile = "largest_rectangle_under_skyline.tsv")
     public static int calculateLargestRectangle(List<Integer> heights) {
-        Deque<Integer> indicesStack = new ArrayDeque<>();
-
         int result = 0;
 
+        Deque<Integer> indicesStack = new ArrayDeque<>();
         for (int i = 0; i < heights.size(); i++) {
-            int currHeight = heights.get(i);
+            while (!indicesStack.isEmpty() && heights.get(indicesStack.peek()) >= heights.get(i)) {
 
+                Integer popped = indicesStack.pop();
+                int height = heights.get(popped);
+                int width;
+                if (indicesStack.isEmpty()) {
+                    width = i;
+                } else {
+                    width = i - indicesStack.peek() - 1;
+                }
 
+                result = Math.max(result, height * width);
+            }
+
+            indicesStack.push(i);
+        }
+
+        while (!indicesStack.isEmpty()) {
+            Integer popped = indicesStack.pop();
+            int height = heights.get(popped);
+            int width;
+
+            if (indicesStack.isEmpty()) {
+                width = heights.size();
+            } else {
+                width = heights.size() - indicesStack.peek() - 1;
+            }
+
+            result = Math.max(result, height * width);
         }
 
         return result;
