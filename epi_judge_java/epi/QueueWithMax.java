@@ -11,16 +11,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class QueueWithMax {
-    //  1 -- 1
-    //  5 -- 5
-    //  3 -- 5 3
-    //  7 -- 7
-    //  4 -- 7 4
-    //  5 -- 7 5
-    //  8 -- 8
-    //  2 -- 8 2
-
-
     private final Deque<Integer> maxStack = new ArrayDeque<>();
     private final Deque<Integer> q = new ArrayDeque<>();
 
