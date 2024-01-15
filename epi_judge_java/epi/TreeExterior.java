@@ -24,7 +24,7 @@ public class TreeExterior {
     }
 
     private static void left(BinaryTreeNode<Integer> node, List<BinaryTreeNode<Integer>> result) {
-        if (node == null || (node.left == null && node.right == null)) return;
+        if (node == null || isLeaf(node)) return;
 
         result.add(node);
 
@@ -32,10 +32,14 @@ public class TreeExterior {
         else left(node.right, result);
     }
 
+    private static boolean isLeaf(BinaryTreeNode<Integer> node) {
+        return node.left == null && node.right == null;
+    }
+
     private static void leaves(BinaryTreeNode<Integer> node, List<BinaryTreeNode<Integer>> result) {
         if (node == null) return;
 
-        if (node.left == null && node.right == null) {
+        if (isLeaf(node)) {
             result.add(node);
         }
 
@@ -44,7 +48,7 @@ public class TreeExterior {
     }
 
     private static void right(BinaryTreeNode<Integer> node, List<BinaryTreeNode<Integer>> result) {
-        if (node == null || (node.left == null && node.right == null)) return;
+        if (node == null || isLeaf(node)) return;
 
         if (node.right != null) right(node.right, result);
         else right(node.left, result);
