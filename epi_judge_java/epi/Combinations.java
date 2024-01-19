@@ -13,20 +13,22 @@ public class Combinations {
     @EpiTest(testDataFile = "combinations.tsv")
     public static List<List<Integer>> combinations(int n, int k) {
         List<List<Integer>> result = new ArrayList<>();
-        for (int mask = 0; mask < (1 << n); mask++) {
-            if (Integer.bitCount(mask) == k) {
-                List<Integer> comb = new ArrayList<>();
-                for (int i = 0; i < n; i++) {
-                    if ((mask & (1 << i)) != 0) {
-                        comb.add(i + 1);
-                    }
-                }
+        recur(n, k, 1, new ArrayList<>(), result);
+        return result;
+    }
 
-                result.add(comb);
-            }
+    private static void recur(int n, int k, int offset, List<Integer> currComb, List<List<Integer>> result) {
+        if (currComb.size() == k) {
+            result.add(new ArrayList<>(currComb));
+            return;
         }
 
-        return result;
+        int remaining = k - currComb.size();
+        for (int i = offset; i <= n && remaining <= n - i + 1; i++) {
+            currComb.add(i);
+            recur(n, k, i + 1, currComb, result);
+            currComb.remove(currComb.size() - 1);
+        }
     }
 
     @EpiTestComparator
