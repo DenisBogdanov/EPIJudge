@@ -2040,7 +2040,7 @@ problem_mapping = {
                 "total": 120
             },
             "Java: Combinations.java": {
-                "passed": 0,
+                "passed": 120,
                 "total": 120
             },
             "Python: combinations.py": {
