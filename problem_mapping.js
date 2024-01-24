@@ -2236,7 +2236,7 @@ problem_mapping = {
                 "total": 41
             },
             "Java: IsStringDecomposableIntoWords.java": {
-                "passed": 0,
+                "passed": 41,
                 "total": 41
             },
             "Python: is_string_decomposable_into_words.py": {
