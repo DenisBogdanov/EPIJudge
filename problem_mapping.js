@@ -2208,7 +2208,7 @@ problem_mapping = {
                 "total": 186
             },
             "Java: IsStringInMatrix.java": {
-                "passed": 0,
+                "passed": 186,
                 "total": 186
             },
             "Python: is_string_in_matrix.py": {
