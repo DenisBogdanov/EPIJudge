@@ -2250,7 +2250,7 @@ problem_mapping = {
                 "total": 101
             },
             "Java: MinimumWeightPathInATriangle.java": {
-                "passed": 0,
+                "passed": 101,
                 "total": 101
             },
             "Python: minimum_weight_path_in_a_triangle.py": {
