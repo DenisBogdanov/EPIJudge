@@ -3,25 +3,29 @@ package epi;
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.TreeMap;
 
 public class LongestNondecreasingSubsequence {
 
     @EpiTest(testDataFile = "longest_nondecreasing_subsequence.tsv")
     public static int longestNondecreasingSubsequenceLength(List<Integer> nums) {
-        int[] dp = new int[nums.size()];
-        Arrays.fill(dp, 1);
+        TreeMap<Integer, Integer> numToLenMap = new TreeMap<>();
+        numToLenMap.put(Integer.MIN_VALUE, 0);
 
-        for (int i = 1; i < nums.size(); i++) {
-            for (int j = i - 1; j >= 0; j--) {
-                if (nums.get(i) >= nums.get(j)) {
-                    dp[i] = Math.max(dp[i], dp[j] + 1);
-                }
+        for (Integer num : nums) {
+            int count = numToLenMap.floorEntry(num).getValue() + 1;
+
+            var ceilingEntry = numToLenMap.ceilingEntry(num);
+            while (ceilingEntry != null && ceilingEntry.getValue() <= count) {
+                numToLenMap.remove(ceilingEntry.getKey());
+                ceilingEntry = numToLenMap.ceilingEntry(num);
             }
+
+            numToLenMap.put(num, count);
         }
 
-        return Arrays.stream(dp).max().orElseThrow();
+        return numToLenMap.lastEntry().getValue();
     }
 
     public static void main(String[] args) {
