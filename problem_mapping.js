@@ -2306,7 +2306,7 @@ problem_mapping = {
                 "total": 200
             },
             "Java: LongestNondecreasingSubsequence.java": {
-                "passed": 0,
+                "passed": 200,
                 "total": 200
             },
             "Python: longest_nondecreasing_subsequence.py": {
