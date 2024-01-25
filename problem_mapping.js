@@ -2576,7 +2576,7 @@ problem_mapping = {
                 "total": 10034
             },
             "Java: Gcd.java": {
-                "passed": 0,
+                "passed": 10034,
                 "total": 10034
             },
             "Python: gcd.py": {
