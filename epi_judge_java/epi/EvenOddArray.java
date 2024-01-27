@@ -16,17 +16,12 @@ public class EvenOddArray {
         int right = arr.size() - 1;
 
         while (left < right) {
-            while (left < right && arr.get(left) % 2 == 0) {
+            if (arr.get(left) % 2 == 0) {
                 left++;
-            }
-
-            while (left < right && arr.get(right) % 2 != 0) {
+            } else {
+                Collections.swap(arr, left, right);
                 right--;
             }
-
-            if (left == right) break;
-
-            Collections.swap(arr, left++, right--);
         }
     }
 
