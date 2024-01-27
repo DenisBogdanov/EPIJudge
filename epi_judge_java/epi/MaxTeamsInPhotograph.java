@@ -28,6 +28,7 @@ public class MaxTeamsInPhotograph {
                     curr.maxDistance,
                     (vertex.maxDistance != 0 ? vertex.maxDistance : dfs(vertex)) + 1);
         }
+
         return curr.maxDistance;
     }
 
