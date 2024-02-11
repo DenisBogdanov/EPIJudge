@@ -12,7 +12,7 @@ int Divide(int x, int y) {
             --shift;
         }
 
-        result += 1LL << shift;
+        result += 1 << shift;
         x -= yPow;
     }
 
