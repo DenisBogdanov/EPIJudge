@@ -2632,7 +2632,7 @@ problem_mapping = {
                 "total": 100
             },
             "Java: LongestIncreasingSubarray.java": {
-                "passed": 0,
+                "passed": 100,
                 "total": 100
             },
             "Python: longest_increasing_subarray.py": {
