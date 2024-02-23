@@ -2618,7 +2618,7 @@ problem_mapping = {
                 "total": 35
             },
             "Java: MaxProductAllButOne.java": {
-                "passed": 0,
+                "passed": 35,
                 "total": 35
             },
             "Python: max_product_all_but_one.py": {
