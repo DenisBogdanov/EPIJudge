@@ -3008,7 +3008,7 @@ problem_mapping = {
                 "total": 1001
             },
             "Java: MaxWaterTrappable.java": {
-                "passed": 0,
+                "passed": 1001,
                 "total": 1001
             },
             "Python: max_water_trappable.py": {
