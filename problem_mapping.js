@@ -2318,7 +2318,7 @@ problem_mapping = {
     "Chapter 17: Greedy Algorithms and Invariants": {
         "17.00 Bootcamp: Greedy Algorithms and Invariants": {
             "C++: making_change.cc": {
-                "passed": 0,
+                "passed": 49999,
                 "total": 49999
             },
             "Java: MakingChange.java": {
