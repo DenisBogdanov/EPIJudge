@@ -622,7 +622,7 @@ problem_mapping = {
         },
         "6.11 Implement run-length encoding": {
             "C++: run_length_compression.cc": {
-                "passed": 0,
+                "passed": 200,
                 "total": 200
             },
             "Java: RunLengthCompression.java": {
