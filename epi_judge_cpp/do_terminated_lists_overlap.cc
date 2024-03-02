@@ -19,13 +19,13 @@ shared_ptr<ListNode<int>> OverlappingNoCycleLists(shared_ptr<ListNode<int>> head
     while (true) {
         if (r1 == nullptr) {
             count++;
-            if (count == 4) break;
+            if (count == 3) break;
             r1 = head2;
         }
 
         if (r2 == nullptr) {
             count++;
-            if (count == 4) break;
+            if (count == 3) break;
             r2 = head1;
         }
 
