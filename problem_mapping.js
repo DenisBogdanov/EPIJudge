@@ -1640,7 +1640,7 @@ problem_mapping = {
         },
         "13.03 Computing the h-index": {
             "C++: h_index.cc": {
-                "passed": 0,
+                "passed": 1001,
                 "total": 1001
             },
             "Java: HIndex.java": {
