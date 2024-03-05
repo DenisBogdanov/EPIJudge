@@ -930,7 +930,7 @@ problem_mapping = {
         },
         "8.05 Compute buildings with a sunset view": {
             "C++: sunset_view.cc": {
-                "passed": 0,
+                "passed": 101,
                 "total": 101
             },
             "Java: SunsetView.java": {
