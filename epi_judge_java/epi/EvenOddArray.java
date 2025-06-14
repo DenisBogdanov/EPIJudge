@@ -9,11 +9,28 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * ToDo: Is there an optimal solution for keeping the order of odd and even elements?
+ */
 public class EvenOddArray {
 
-    public static void evenOdd(List<Integer> A) {
-        // TODO - you fill in here.
-        return;
+    public static void evenOdd(List<Integer> list) {
+        int evenIndex = 0;
+        int oddIndex = list.size() - 1;
+
+        while (evenIndex < oddIndex) {
+            while (evenIndex < oddIndex && list.get(evenIndex) % 2 == 0) {
+                evenIndex++;
+            }
+            while (evenIndex < oddIndex && list.get(oddIndex) % 2 != 0) {
+                oddIndex--;
+            }
+            int temp = list.get(evenIndex);
+            list.set(evenIndex, list.get(oddIndex));
+            list.set(oddIndex, temp);
+            evenIndex++;
+            oddIndex--;
+        }
     }
 
     @EpiTest(testDataFile = "even_odd_array.tsv")
