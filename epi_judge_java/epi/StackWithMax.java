@@ -5,30 +5,35 @@ import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public class StackWithMax {
 
     public static class Stack {
+        private ArrayList<Item> storage = new ArrayList<>();
+
         public boolean empty() {
-            // TODO - you fill in here.
-            return true;
+            return storage.isEmpty();
         }
 
         public Integer max() {
-            // TODO - you fill in here.
-            return 0;
+            if (empty()) return null;
+            return storage.getLast().currMax;
         }
 
         public Integer pop() {
-            // TODO - you fill in here.
-            return 0;
+            if (empty()) return null;
+            return storage.removeLast().value;
         }
 
-        public void push(Integer x) {
-            // TODO - you fill in here.
-            return;
+        public void push(int x) {
+            var currMax = max();
+            storage.add(new Item(x, currMax == null ? x : Math.max(currMax, x)));
+        }
+
+        private record Item(int value, int currMax) {
         }
     }
 
