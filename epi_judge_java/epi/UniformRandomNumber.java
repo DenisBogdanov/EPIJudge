@@ -16,13 +16,20 @@ public class UniformRandomNumber {
     }
 
     public static int uniformRandom(int lowerBound, int upperBound) {
-        // TODO - you fill in here.
-        return 0;
+        int diff = upperBound - lowerBound;
+        while (true) {
+            int toAdd = 0;
+            for (int i = 1; i <= diff; i *= 2) {
+                toAdd *= 2;
+                toAdd += zeroOneRandom();
+            }
+            if (toAdd <= diff) {
+                return lowerBound + toAdd;
+            }
+        }
     }
 
-    private static boolean uniformRandomRunner(TimedExecutor executor,
-                                               int lowerBound, int upperBound)
-            throws Exception {
+    private static boolean uniformRandomRunner(TimedExecutor executor, int lowerBound, int upperBound) throws Exception {
         List<Integer> results = new ArrayList<>();
 
         executor.run(() -> {
