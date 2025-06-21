@@ -1,10 +1,27 @@
 package epi;
 
+import com.sun.source.tree.BreakTree;
 import epi.test_framework.EpiTest;
 import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
 
 public class RectangleIntersection {
+
+    private static final Rect EMPTY_INTERSECTION = new Rect(0, 0, -1, -1);
+
+    @EpiTest(testDataFile = "rectangle_intersection.tsv")
+    public static Rect intersectRectangle(Rect r1, Rect r2) {
+        int intersectWidth = Math.min(r1.x + r1.width, r2.x + r2.width) - Math.max(r1.x, r2.x);
+        if (intersectWidth < 0) {
+            return EMPTY_INTERSECTION;
+        }
+        int intersectionHeight = Math.min(r1.y + r1.height, r2.y + r2.height) - Math.max(r1.y, r2.y);
+        if (intersectionHeight < 0) {
+            return EMPTY_INTERSECTION;
+        }
+        return new Rect(Math.max(r1.x, r2.x), Math.max(r1.y, r2.y), intersectWidth, intersectionHeight);
+    }
+
     @EpiUserType(ctorParams = {int.class, int.class, int.class, int.class})
     public static class Rect {
         int x, y, width, height;
@@ -52,12 +69,6 @@ public class RectangleIntersection {
         public String toString() {
             return "[" + x + ", " + y + ", " + width + ", " + height + "]";
         }
-    }
-
-    @EpiTest(testDataFile = "rectangle_intersection.tsv")
-    public static Rect intersectRectangle(Rect r1, Rect r2) {
-        // TODO - you fill in here.
-        return new Rect(0, 0, 0, 0);
     }
 
     public static void main(String[] args) {
