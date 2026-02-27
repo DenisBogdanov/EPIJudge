@@ -2572,7 +2572,7 @@ problem_mapping = {
     "Chapter 24: Honors Class": {
         "24.01 Compute the greatest common divisor": {
             "C++: gcd.cc": {
-                "passed": 0,
+                "passed": 10034,
                 "total": 10034
             },
             "Java: Gcd.java": {
