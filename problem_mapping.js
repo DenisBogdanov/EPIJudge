@@ -2218,7 +2218,7 @@ problem_mapping = {
         },
         "16.06 The knapsack problem": {
             "C++: knapsack.cc": {
-                "passed": 0,
+                "passed": 100,
                 "total": 100
             },
             "Java: Knapsack.java": {
