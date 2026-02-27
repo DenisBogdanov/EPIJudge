@@ -2586,7 +2586,7 @@ problem_mapping = {
         },
         "24.02 Find the first missing positive entry": {
             "C++: first_missing_positive_entry.cc": {
-                "passed": 0,
+                "passed": 1001,
                 "total": 1001
             },
             "Java: FirstMissingPositiveEntry.java": {
