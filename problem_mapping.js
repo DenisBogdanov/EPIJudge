@@ -2260,7 +2260,7 @@ problem_mapping = {
         },
         "16.09 Pick up coins for maximum gain": {
             "C++: picking_up_coins.cc": {
-                "passed": 0,
+                "passed": 162,
                 "total": 162
             },
             "Java: PickingUpCoins.java": {
