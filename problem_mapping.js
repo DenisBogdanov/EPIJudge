@@ -2232,7 +2232,7 @@ problem_mapping = {
         },
         "16.07 Building a search index for domains": {
             "C++: is_string_decomposable_into_words.cc": {
-                "passed": 0,
+                "passed": 41,
                 "total": 41
             },
             "Java: IsStringDecomposableIntoWords.java": {
