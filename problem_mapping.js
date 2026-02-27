@@ -142,7 +142,7 @@ problem_mapping = {
         },
         "4.10 Generate uniform random numbers": {
             "C++: uniform_random_number.cc": {
-                "passed": 0,
+                "passed": 7,
                 "total": 7
             },
             "Java: UniformRandomNumber.java": {
