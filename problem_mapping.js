@@ -566,7 +566,7 @@ problem_mapping = {
         },
         "6.07 The look-and-say problem": {
             "C++: look_and_say.cc": {
-                "passed": 0,
+                "passed": 40,
                 "total": 40
             },
             "Java: LookAndSay.java": {
