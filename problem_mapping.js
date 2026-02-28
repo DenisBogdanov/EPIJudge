@@ -2428,7 +2428,7 @@ problem_mapping = {
         },
         "17.07 Compute the maximum water trapped by a pair of vertical lines": {
             "C++: max_trapped_water.cc": {
-                "passed": 0,
+                "passed": 204,
                 "total": 204
             },
             "Java: MaxTrappedWater.java": {
