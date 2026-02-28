@@ -2614,7 +2614,7 @@ problem_mapping = {
         },
         "24.04 Compute the maximum product of all entries but one": {
             "C++: max_product_all_but_one.cc": {
-                "passed": 0,
+                "passed": 35,
                 "total": 35
             },
             "Java: MaxProductAllButOne.java": {
