@@ -1668,7 +1668,7 @@ problem_mapping = {
         },
         "13.05 Smallest nonconstructible value": {
             "C++: smallest_nonconstructible_value.cc": {
-                "passed": 0,
+                "passed": 308,
                 "total": 308
             },
             "Java: SmallestNonconstructibleValue.java": {
