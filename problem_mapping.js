@@ -2400,7 +2400,7 @@ problem_mapping = {
         },
         "17.05 Find the majority element": {
             "C++: majority_element.cc": {
-                "passed": 0,
+                "passed": 201,
                 "total": 201
             },
             "Java: MajorityElement.java": {
