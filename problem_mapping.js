@@ -2796,7 +2796,7 @@ problem_mapping = {
         },
         "24.17 Find an element that appears only once": {
             "C++: element_appearing_once.cc": {
-                "passed": 0,
+                "passed": 102,
                 "total": 102
             },
             "Java: ElementAppearingOnce.java": {
