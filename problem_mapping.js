@@ -2782,7 +2782,7 @@ problem_mapping = {
         },
         "24.16 Find the kth largest element---large n, small k": {
             "C++: kth_largest_element_in_long_array.cc": {
-                "passed": 0,
+                "passed": 503,
                 "total": 503
             },
             "Java: KthLargestElementInLongArray.java": {
