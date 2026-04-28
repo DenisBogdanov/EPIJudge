@@ -4,10 +4,32 @@ import epi.test_framework.*;
 
 public class LowestCommonAncestorWithParent {
 
-    public static BinaryTree<Integer> lca(BinaryTree<Integer> node0,
-                                          BinaryTree<Integer> node1) {
-        // TODO - you fill in here.
-        return null;
+    public static BinaryTree<Integer> lca(BinaryTree<Integer> n1, BinaryTree<Integer> n2) {
+        int d1 = 0;
+        var runner = n1;
+        while (runner != null) {
+            d1++;
+            runner = runner.parent;
+        }
+        int d2 = 0;
+        runner = n2;
+        while (runner != null) {
+            d2++;
+            runner = runner.parent;
+        }
+        while (d1 > d2) {
+            d1--;
+            n1 = n1.parent;
+        }
+        while (d2 > d1) {
+            d2--;
+            n2 = n2.parent;
+        }
+        while (n1 != n2) {
+            n1 = n1.parent;
+            n2 = n2.parent;
+        }
+        return n1;
     }
 
     @EpiTest(testDataFile = "lowest_common_ancestor.tsv")
