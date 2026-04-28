@@ -5,23 +5,27 @@ import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class QueueWithMax {
+    Queue<Integer> storage = new ArrayDeque<>();
+    Deque<Integer> currMaxes = new ArrayDeque<>();
+
     public void enqueue(Integer x) {
-        // TODO - you fill in here.
-        return;
+        storage.offer(x);
+        while (!currMaxes.isEmpty() && currMaxes.getLast() < x) currMaxes.pollLast();
+        currMaxes.addLast(x);
     }
 
     public Integer dequeue() {
-        // TODO - you fill in here.
-        return 0;
+        if (storage.isEmpty()) return null;
+        int ans = storage.poll();
+        if (currMaxes.getFirst() == ans) currMaxes.pollFirst();
+        return ans;
     }
 
     public Integer max() {
-        // TODO - you fill in here.
-        return 0;
+        return currMaxes.peekFirst();
     }
 
     @EpiUserType(ctorParams = {String.class, int.class})
