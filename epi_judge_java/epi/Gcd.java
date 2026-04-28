@@ -4,11 +4,11 @@ import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 
 public class Gcd {
-    @EpiTest(testDataFile = "gcd.tsv")
 
+    @EpiTest(testDataFile = "gcd.tsv")
     public static long GCD(long x, long y) {
-        // TODO - you fill in here.
-        return 0;
+        if (y == 0) return x;
+        return GCD(y, x % y);
     }
 
     public static void main(String[] args) {
