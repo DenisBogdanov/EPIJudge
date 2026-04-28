@@ -10,22 +10,44 @@ import java.util.List;
 public class CircularQueue {
 
     public static class Queue {
+        private int[] storage;
+        private int start = 0;
+        private int size = 0;
+
+
         public Queue(int capacity) {
+            this.storage = new int[capacity];
         }
 
         public void enqueue(Integer x) {
-            // TODO - you fill in here.
-            return;
+            if (size == storage.length) {
+                ensureCapacity(storage.length * 2);
+            }
+            storage[(start + size) % storage.length] = x;
+            size++;
+        }
+
+        private void ensureCapacity(int newSize) {
+            int[] newStorage = new int[newSize];
+            for (int i = 0; i < size; i++) {
+                newStorage[i] = storage[(start + i) % storage.length];
+            }
+            this.start = 0;
+            this.storage = newStorage;
         }
 
         public Integer dequeue() {
-            // TODO - you fill in here.
-            return 0;
+            if (size == 0) return null;
+            size--;
+            int ans = storage[start];
+            start++;
+            if (start == storage.length) start = 0;
+            if (size < storage.length / 4) ensureCapacity(storage.length / 2);
+            return ans;
         }
 
         public int size() {
-            // TODO - you fill in here.
-            return 0;
+            return size;
         }
 
         @Override
