@@ -5,31 +5,39 @@ import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public class StackWithMax {
 
     public static class Stack {
+        private final Deque<StackEntry> storage = new ArrayDeque<>();
+
         public boolean empty() {
-            // TODO - you fill in here.
-            return true;
+            return storage.isEmpty();
         }
 
         public Integer max() {
-            // TODO - you fill in here.
-            return 0;
+            if (empty()) return null;
+            return storage.peek().currMax;
         }
 
         public Integer pop() {
-            // TODO - you fill in here.
-            return 0;
+            if (empty()) return null;
+            return storage.pop().value;
         }
 
         public void push(Integer x) {
-            // TODO - you fill in here.
-            return;
+            if (empty()) {
+                storage.push(new StackEntry(x, x));
+            } else {
+                storage.push(new StackEntry(x, Math.max(x, max())));
+            }
         }
+
+        private record StackEntry(int value, int currMax) {}
     }
 
     @EpiUserType(ctorParams = {String.class, int.class})
