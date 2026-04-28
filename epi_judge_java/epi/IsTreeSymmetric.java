@@ -4,11 +4,19 @@ import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 
 public class IsTreeSymmetric {
-    @EpiTest(testDataFile = "is_tree_symmetric.tsv")
 
+    @EpiTest(testDataFile = "is_tree_symmetric.tsv")
     public static boolean isSymmetric(BinaryTreeNode<Integer> tree) {
-        // TODO - you fill in here.
-        return true;
+        if (tree == null) return true;
+        return isSym(tree.left, tree.right);
+    }
+
+    private static boolean isSym(BinaryTreeNode<Integer> left, BinaryTreeNode<Integer> right) {
+        if (left == null && right == null) return true;
+        if (left == null || right == null) return false;
+        return left.data.equals(right.data)
+                && isSym(left.left, right.right)
+                && isSym(left.right, right.left);
     }
 
     public static void main(String[] args) {
