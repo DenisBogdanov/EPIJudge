@@ -5,11 +5,19 @@ import epi.test_framework.GenericTest;
 
 public class IsTreeBalanced {
 
-    @EpiTest(testDataFile = "is_tree_balanced.tsv")
+    private static int findHeightDfs(BinaryTreeNode<Integer> tree) {
+        if (tree == null) return 0;
+        int left = findHeightDfs(tree.left);
+        if (left == -1) return -1;
+        int right = findHeightDfs(tree.right);
+        if (right == -1) return -1;
+        if (Math.abs(left - right) > 1) return -1;
+        return Math.max(left, right) + 1;
+    }
 
+    @EpiTest(testDataFile = "is_tree_balanced.tsv")
     public static boolean isBalanced(BinaryTreeNode<Integer> tree) {
-        // TODO - you fill in here.
-        return true;
+        return findHeightDfs(tree) != -1;
     }
 
     public static void main(String[] args) {
