@@ -5,13 +5,57 @@ import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class SearchMaze {
-    @EpiUserType(ctorParams = {int.class, int.class})
+    private static final int[][] DIRS = {
+            {0, 1},
+            {1, 0},
+            {0, -1},
+            {-1, 0},
+    };
 
+    public static List<Coordinate> searchMaze(List<List<Color>> maze, Coordinate s, Coordinate e) {
+        int n = maze.size();
+        int m = maze.get(0).size();
+        Coordinate[][] prev = new Coordinate[n][m];
+        prev[s.x][s.y] = new Coordinate(-1, -1);
+        Queue<Coordinate> q = new ArrayDeque<>();
+        q.offer(s);
+        while (!q.isEmpty()) {
+            var polled = q.poll();
+            for (var dir : DIRS) {
+                int newR = polled.x + dir[0];
+                int newC = polled.y + dir[1];
+
+                if (newR == e.x && newC == e.y) {
+                    prev[newR][newC] = polled;
+                    return createPath(prev, e);
+                }
+
+                if (newR < 0 || newR == n || newC < 0 || newC == m) continue;
+                if (prev[newR][newC] != null || maze.get(newR).get(newC) == Color.BLACK) continue;
+                q.offer(new Coordinate(newR, newC));
+                prev[newR][newC] = polled;
+            }
+
+        }
+
+        return Collections.emptyList();
+    }
+
+    private static List<Coordinate> createPath(Coordinate[][] prev, Coordinate e) {
+        Coordinate curr = e;
+        List<Coordinate> ans = new ArrayList<>();
+        while (curr.x != -1) {
+            ans.add(curr);
+            curr = prev[curr.x][curr.y];
+        }
+        Collections.reverse(ans);
+        return ans;
+    }
+
+    @EpiUserType(ctorParams = {int.class, int.class})
     public static class Coordinate {
         public int x, y;
 
@@ -39,12 +83,6 @@ public class SearchMaze {
     }
 
     public enum Color {WHITE, BLACK}
-
-    public static List<Coordinate> searchMaze(List<List<Color>> maze,
-                                              Coordinate s, Coordinate e) {
-        // TODO - you fill in here.
-        return Collections.emptyList();
-    }
 
     public static boolean pathElementIsFeasible(List<List<Integer>> maze,
                                                 Coordinate prev, Coordinate cur) {
