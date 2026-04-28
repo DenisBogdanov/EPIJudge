@@ -6,6 +6,28 @@ import epi.test_framework.TestFailure;
 import epi.test_framework.TimedExecutor;
 
 public class KthNodeInTree {
+    private static int count = 0;
+    private static BinaryTreeNode<Integer> ans = null;
+
+    public static BinaryTreeNode<Integer> findKthNodeBinaryTree(BinaryTreeNode<Integer> tree, int k) {
+        count = 0;
+        ans = null;
+        inorder(tree, k);
+        return ans;
+    }
+
+    private static void inorder(BinaryTreeNode<Integer> node, int k) {
+        if (ans != null) return;
+        if (node == null) return;
+        inorder(node.left, k);
+        count++;
+        if (count == k) {
+            ans = node;
+            return;
+        }
+        inorder(node.right, k);
+    }
+
     public static class BinaryTreeNode<T> extends TreeLike<T, BinaryTreeNode<T>> {
         public T data;
         public BinaryTreeNode<T> left, right;
@@ -33,12 +55,6 @@ public class KthNodeInTree {
         public BinaryTreeNode<T> getRight() {
             return right;
         }
-    }
-
-    public static BinaryTreeNode<Integer>
-    findKthNodeBinaryTree(BinaryTreeNode<Integer> tree, int k) {
-        // TODO - you fill in here.
-        return null;
     }
 
     public static BinaryTreeNode<Integer>
