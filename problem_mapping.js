@@ -2054,7 +2054,7 @@ problem_mapping = {
                 "total": 11
             },
             "Java: EnumerateBalancedParentheses.java": {
-                "passed": 0,
+                "passed": 11,
                 "total": 11
             },
             "Python: enumerate_balanced_parentheses.py": {
