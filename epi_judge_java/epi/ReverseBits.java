@@ -4,10 +4,19 @@ import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 
 public class ReverseBits {
+
     @EpiTest(testDataFile = "reverse_bits.tsv")
     public static long reverseBits(long x) {
-        // TODO - you fill in here.
-        return 0;
+        int left = 0;
+        int right = 63;
+        while (left < right) {
+            if (((x >> left) & 1) != ((x >> right) & 1)) {
+                x = x ^ (1L << left) ^ (1L << right);
+            }
+            left++;
+            right--;
+        }
+        return x;
     }
 
     public static void main(String[] args) {
