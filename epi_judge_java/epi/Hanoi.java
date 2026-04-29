@@ -8,12 +8,19 @@ import epi.test_framework.TimedExecutor;
 import java.util.*;
 
 public class Hanoi {
-
     private static final int NUM_PEGS = 3;
 
     public static List<List<Integer>> computeTowerHanoi(int numRings) {
-        // TODO - you fill in here.
-        return Collections.emptyList();
+        List<List<Integer>> ans = new ArrayList<>();
+        recur(numRings, ans, 0, 1, 2);
+        return ans;
+    }
+
+    private static void recur(int numRings, List<List<Integer>> ans, int start, int helper, int end) {
+        if (numRings == 0) return;
+        recur(numRings - 1, ans, start, end, helper);
+        ans.add(List.of(start, end));
+        recur(numRings - 1, ans, helper, start, end);
     }
 
     @EpiTest(testDataFile = "hanoi.tsv")
