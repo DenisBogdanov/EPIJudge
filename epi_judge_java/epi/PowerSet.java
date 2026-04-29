@@ -5,15 +5,26 @@ import epi.test_framework.EpiTestComparator;
 import epi.test_framework.GenericTest;
 import epi.test_framework.LexicographicalListComparator;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class PowerSet {
-    @EpiTest(testDataFile = "power_set.tsv")
 
+    @EpiTest(testDataFile = "power_set.tsv")
     public static List<List<Integer>> generatePowerSet(List<Integer> inputSet) {
-        // TODO - you fill in here.
-        return null;
+        int n = inputSet.size();
+        List<List<Integer>> ans = new ArrayList<>();
+        for (int mask = 0; mask < (1 << n); mask++) {
+            List<Integer> curr = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                if (((mask >> i) & 1) != 0) {
+                    curr.add(inputSet.get(i));
+                }
+            }
+            ans.add(curr);
+        }
+        return ans;
     }
 
     @EpiTestComparator
