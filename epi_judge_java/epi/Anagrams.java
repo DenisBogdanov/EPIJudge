@@ -5,15 +5,25 @@ import epi.test_framework.EpiTestComparator;
 import epi.test_framework.GenericTest;
 import epi.test_framework.LexicographicalListComparator;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Anagrams {
-    @EpiTest(testDataFile = "anagrams.tsv")
 
+    @EpiTest(testDataFile = "anagrams.tsv")
     public static List<List<String>> findAnagrams(List<String> dictionary) {
-        // TODO - you fill in here.
-        return null;
+        Map<String, List<String>> sortedToAnagramsMap = new HashMap<>();
+        for (String s : dictionary) {
+            var chars = s.toCharArray();
+            Arrays.sort(chars);
+            var sortedStr = new String(chars);
+            sortedToAnagramsMap.computeIfAbsent(sortedStr, k -> new ArrayList<>()).add(s);
+        }
+        List<List<String>> ans = new ArrayList<>();
+        for (var entry : sortedToAnagramsMap.entrySet()) {
+            if (entry.getValue().size() == 1) continue;
+            ans.add(entry.getValue());
+        }
+        return ans;
     }
 
     @EpiTestComparator
