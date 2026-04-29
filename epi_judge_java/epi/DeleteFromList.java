@@ -7,9 +7,8 @@ import epi.test_framework.TimedExecutor;
 public class DeleteFromList {
 
     // Delete the node immediately following aNode. Assumes aNode is not a tail.
-    public static void deleteList(ListNode<Integer> aNode) {
-        // TODO - you fill in here.
-        return;
+    public static void deleteList(ListNode<Integer> node) {
+        node.next = node.next.next;
     }
 
     @EpiTest(testDataFile = "delete_from_list.tsv")
