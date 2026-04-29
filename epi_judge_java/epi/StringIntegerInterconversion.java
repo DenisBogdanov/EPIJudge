@@ -7,13 +7,36 @@ import epi.test_framework.TestFailure;
 public class StringIntegerInterconversion {
 
     public static String intToString(int x) {
-        // TODO - you fill in here.
-        return "0";
+        if (x == 0) return "0";
+        long num = x;
+        boolean isNegative = num < 0;
+        if (isNegative) num = -num;
+        StringBuilder sb = new StringBuilder();
+        while (num > 0) {
+            sb.append(num % 10);
+            num /= 10;
+        }
+        if (isNegative) sb.append('-');
+        return sb.reverse().toString();
     }
 
     public static int stringToInt(String s) {
-        // TODO - you fill in here.
-        return 0;
+        boolean isNegative = false;
+        int start = 0;
+        if (s.charAt(start) == '-') {
+            start++;
+            isNegative = true;
+        } else if (s.charAt(start) == '+') {
+            start++;
+        }
+
+        long ans = 0;
+        for (int i = start; i < s.length(); i++) {
+            ans *= 10;
+            ans += s.charAt(i) - '0';
+        }
+        if (isNegative) ans *= -1;
+        return (int) ans;
     }
 
     @EpiTest(testDataFile = "string_integer_interconversion.tsv")
