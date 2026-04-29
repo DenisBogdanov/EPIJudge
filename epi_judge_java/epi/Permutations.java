@@ -5,15 +5,29 @@ import epi.test_framework.EpiTestComparator;
 import epi.test_framework.GenericTest;
 import epi.test_framework.LexicographicalListComparator;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Permutations {
-    @EpiTest(testDataFile = "permutations.tsv")
 
-    public static List<List<Integer>> permutations(List<Integer> A) {
-        // TODO - you fill in here.
-        return null;
+    @EpiTest(testDataFile = "permutations.tsv")
+    public static List<List<Integer>> permutations(List<Integer> nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        recur(0, nums, ans);
+        return ans;
+    }
+
+    private static void recur(int i, List<Integer> nums, List<List<Integer>> ans) {
+        if (i == nums.size()) {
+            ans.add(new ArrayList<>(nums));
+            return;
+        }
+
+        for (int j = i; j < nums.size(); j++) {
+            Collections.swap(nums, i, j);
+            recur(i + 1, nums, ans);
+        }
     }
 
     @EpiTestComparator
