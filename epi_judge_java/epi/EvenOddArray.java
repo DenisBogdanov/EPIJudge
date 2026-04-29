@@ -11,9 +11,20 @@ import java.util.List;
 
 public class EvenOddArray {
 
-    public static void evenOdd(List<Integer> A) {
-        // TODO - you fill in here.
-        return;
+    public static void evenOdd(List<Integer> nums) {
+        int evenIdx = 0;
+        int oddIdx = nums.size() - 1;
+
+        while (evenIdx < oddIdx) {
+            if (nums.get(evenIdx) % 2 == 0) {
+                evenIdx++;
+            } else {
+                int temp = nums.get(evenIdx);
+                nums.set(evenIdx, nums.get(oddIdx));
+                nums.set(oddIdx, temp);
+                oddIdx--;
+            }
+        }
     }
 
     @EpiTest(testDataFile = "even_odd_array.tsv")
