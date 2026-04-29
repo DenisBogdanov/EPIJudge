@@ -6,9 +6,32 @@ import epi.test_framework.GenericTest;
 import epi.test_framework.TimedExecutor;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class DeadlockDetection {
+
+    public static boolean isDeadlocked(List<GraphVertex> graph) {
+        Set<GraphVertex> visited = new HashSet<>();
+        for (GraphVertex graphVertex : graph) {
+            if (visited.contains(graphVertex)) continue;
+            if (hasCycleDfs(graphVertex, null, visited)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean hasCycleDfs(GraphVertex curr, GraphVertex prev, Set<GraphVertex> visited) {
+        visited.add(curr);
+        for (var next : curr.edges) {
+            if (prev == next) return true;
+            if (visited.contains(next)) return true;
+            if (hasCycleDfs(next, curr, visited)) return true;
+        }
+        return false;
+    }
 
     public static class GraphVertex {
         public List<GraphVertex> edges;
@@ -16,11 +39,6 @@ public class DeadlockDetection {
         public GraphVertex() {
             edges = new ArrayList<>();
         }
-    }
-
-    public static boolean isDeadlocked(List<GraphVertex> graph) {
-        // TODO - you fill in here.
-        return true;
     }
 
     @EpiUserType(ctorParams = {int.class, int.class})
