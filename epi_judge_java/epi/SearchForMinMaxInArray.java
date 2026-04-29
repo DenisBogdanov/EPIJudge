@@ -12,11 +12,18 @@ public class SearchForMinMaxInArray {
     public static MinMax findMinMax(List<Integer> nums) {
         int min = nums.get(0);
         int max = nums.get(0);
-        for (int i = 1; i < nums.size(); i++) {
-            if (nums.get(i) <= min) {
-                min = nums.get(i);
-            } else if (nums.get(i) > max) {
-                max = nums.get(i);
+        for (int i = 1; i < nums.size(); i += 2) {
+            if (i + 1 == nums.size()) {
+                if (nums.get(i) <= min) {
+                    min = nums.get(i);
+                } else if (nums.get(i) > max) {
+                    max = nums.get(i);
+                }
+            } else {
+                int currMin = Math.min(nums.get(i), nums.get(i + 1));
+                int currMax = nums.get(i) + nums.get(i + 1) - currMin;
+                min = Math.min(min, currMin);
+                max = Math.max(max, currMax);
             }
         }
         return new MinMax(min, max);
