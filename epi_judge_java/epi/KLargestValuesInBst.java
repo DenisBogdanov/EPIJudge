@@ -4,15 +4,27 @@ import epi.test_framework.EpiTest;
 import epi.test_framework.EpiTestComparator;
 import epi.test_framework.GenericTest;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class KLargestValuesInBst {
-    @EpiTest(testDataFile = "k_largest_values_in_bst.tsv")
+    private static List<Integer> ans;
 
+    @EpiTest(testDataFile = "k_largest_values_in_bst.tsv")
     public static List<Integer> findKLargestInBst(BstNode<Integer> tree, int k) {
-        // TODO - you fill in here.
-        return Collections.emptyList();
+        ans = new ArrayList<>();
+        dfs(tree, k);
+        Collections.reverse(ans);
+        return ans;
+    }
+
+    private static void dfs(BstNode<Integer> tree, int k) {
+        if (tree == null) return;
+        dfs(tree.right, k);
+        if (ans.size() == k) return;
+        ans.add(tree.data);
+        dfs(tree.left, k);
     }
 
     @EpiTestComparator
