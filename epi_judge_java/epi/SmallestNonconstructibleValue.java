@@ -6,11 +6,16 @@ import epi.test_framework.GenericTest;
 import java.util.List;
 
 public class SmallestNonconstructibleValue {
-    @EpiTest(testDataFile = "smallest_nonconstructible_value.tsv")
 
-    public static int smallestNonconstructibleValue(List<Integer> A) {
-        // TODO - you fill in here.
-        return 0;
+    @EpiTest(testDataFile = "smallest_nonconstructible_value.tsv")
+    public static int smallestNonconstructibleValue(List<Integer> nums) {
+        nums.sort(null);
+        int totalSum = 0;
+        for (int num : nums) {
+            if (totalSum + 1 < num) return totalSum + 1;
+            totalSum += num;
+        }
+        return totalSum + 1;
     }
 
     public static void main(String[] args) {
