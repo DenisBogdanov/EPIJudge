@@ -2,11 +2,25 @@ package epi;
 
 import epi.test_framework.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class LowestCommonAncestorCloseAncestor {
 
-    public static BinaryTree<Integer> lca(BinaryTree<Integer> node0,
-                                          BinaryTree<Integer> node1) {
-        // TODO - you fill in here.
+    public static BinaryTree<Integer> lca(BinaryTree<Integer> node1, BinaryTree<Integer> node2) {
+        Set<BinaryTree<Integer>> seen = new HashSet<>();
+        while (node1 != null || node2 != null) {
+            if (node1 != null) {
+                if (seen.contains(node1)) return node1;
+                seen.add(node1);
+                node1 = node1.parent;
+            }
+            if (node2 != null) {
+                if (seen.contains(node2)) return node2;
+                seen.add(node2);
+                node2 = node2.parent;
+            }
+        }
         return null;
     }
 
