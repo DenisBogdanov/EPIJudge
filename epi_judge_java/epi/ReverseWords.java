@@ -7,8 +7,31 @@ import epi.test_framework.TimedExecutor;
 public class ReverseWords {
 
     public static void reverseWords(char[] input) {
-        // TODO - you fill in here.
-        return;
+        reverse(input, 0, input.length);
+        int start = 0;
+        while (start < input.length && input[start] == ' ') start++;
+        for (int i = 1; i < input.length; i++) {
+            if (input[i] != ' ' && input[i - 1] == ' '){
+                start = i;
+            }
+            if ((input[i] == ' ' && input[i - 1] != ' ')) {
+                reverse(input, start, i);
+                start = -1;
+            }
+        }
+        if (start != -1) reverse(input, start, input.length);
+    }
+
+    private static void reverse(char[] arr, int start, int end) {
+        int left = start;
+        int right = end - 1;
+        while (left < right) {
+            char temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left++;
+            right--;
+        }
     }
 
     @EpiTest(testDataFile = "reverse_words.tsv")
