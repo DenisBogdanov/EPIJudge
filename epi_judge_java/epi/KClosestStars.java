@@ -2,13 +2,23 @@ package epi;
 
 import epi.test_framework.*;
 
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class KClosestStars {
-    @EpiUserType(ctorParams = {double.class, double.class, double.class})
 
+    public static List<Star> findClosestKStars(Iterator<Star> stars, int k) {
+        List<Star> ans = new ArrayList<>();
+        PriorityQueue<Star> minHeap = new PriorityQueue<>(Comparator.reverseOrder());
+        while (stars.hasNext()) {
+            Star next = stars.next();
+            minHeap.offer(next);
+            if (minHeap.size() > k) minHeap.poll();
+        }
+        while (!minHeap.isEmpty()) ans.add(minHeap.poll());
+        return ans;
+    }
+
+    @EpiUserType(ctorParams = {double.class, double.class, double.class})
     public static class Star implements Comparable<Star> {
         private double x, y, z;
 
@@ -31,11 +41,6 @@ public class KClosestStars {
         public String toString() {
             return String.valueOf(distance());
         }
-    }
-
-    public static List<Star> findClosestKStars(Iterator<Star> stars, int k) {
-        // TODO - you fill in here.
-        return Collections.emptyList();
     }
 
     @EpiTest(testDataFile = "k_closest_stars.tsv")
