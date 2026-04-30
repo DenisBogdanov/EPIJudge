@@ -3,11 +3,27 @@ package epi;
 import epi.test_framework.*;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class RemoveDuplicates {
+
+    public static void eliminateDuplicate(List<Name> names) {
+        names.sort(Comparator.comparing(n -> n.firstName));
+        int writeIdx = 1;
+        for (int i = 1; i < names.size(); i++) {
+            if (!names.get(i).firstName.equals(names.get(i - 1).firstName)) {
+                names.set(writeIdx, names.get(i));
+                writeIdx++;
+            }
+        }
+        int size = names.size();
+        while (size > writeIdx) {
+            names.remove(--size);
+        }
+    }
+
     @EpiUserType(ctorParams = {String.class, String.class})
-    //@include
     public static class Name implements Comparable<Name> {
         String firstName;
         String lastName;
@@ -42,11 +58,6 @@ public class RemoveDuplicates {
             }
             return lastName.compareTo(name.lastName);
         }
-    }
-
-    public static void eliminateDuplicate(List<Name> names) {
-        // TODO - you fill in here.
-        return;
     }
 
     @EpiTest(testDataFile = "remove_duplicates.tsv")
