@@ -7,8 +7,23 @@ import epi.test_framework.GenericTest;
 import java.util.List;
 
 public class Knapsack {
-    @EpiUserType(ctorParams = {Integer.class, Integer.class})
 
+    @EpiTest(testDataFile = "knapsack.tsv")
+    public static int optimumSubjectToCapacity(List<Item> items, int capacity) {
+        int[] dp = new int[capacity + 1];
+        for (Item item : items) {
+            for (int i = capacity; i >= item.weight; i--) {
+                dp[i] = Math.max(dp[i], item.value + dp[i - item.weight]);
+            }
+        }
+        int ans = 0;
+        for (int d : dp) {
+            ans = Math.max(ans, d);
+        }
+        return ans;
+    }
+
+    @EpiUserType(ctorParams = {Integer.class, Integer.class})
     public static class Item {
         public Integer weight;
         public Integer value;
@@ -17,13 +32,6 @@ public class Knapsack {
             this.weight = weight;
             this.value = value;
         }
-    }
-
-    @EpiTest(testDataFile = "knapsack.tsv")
-
-    public static int optimumSubjectToCapacity(List<Item> items, int capacity) {
-        // TODO - you fill in here.
-        return 0;
     }
 
     public static void main(String[] args) {
