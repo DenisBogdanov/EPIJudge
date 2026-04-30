@@ -2194,7 +2194,7 @@ problem_mapping = {
                 "total": 5906
             },
             "Java: BinomialCoefficients.java": {
-                "passed": 0,
+                "passed": 5906,
                 "total": 5906
             },
             "Python: binomial_coefficients.py": {
