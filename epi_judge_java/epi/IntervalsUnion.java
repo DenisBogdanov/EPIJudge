@@ -7,23 +7,58 @@ import epi.test_framework.TimedExecutor;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class IntervalsUnion {
+
+    public static List<Interval> unionOfIntervals(List<Interval> intervals) {
+        List<Interval> ans = new ArrayList<>();
+        intervals.sort((i1, i2) -> {
+            if (i1.left.val == i2.left.val) {
+                return i1.left.isClosed ? -1 : 1;
+            }
+            return i1.left.val - i2.left.val;
+        });
+
+        Interval.Endpoint currLeft = intervals.get(0).left;
+        Interval.Endpoint currRight = intervals.get(0).right;
+        for (int i = 1; i < intervals.size(); i++) {
+            var next = intervals.get(i);
+            if (next.left.val > currRight.val
+                    || (next.left.val == currRight.val && !next.left.isClosed && !currRight.isClosed)) {
+                ans.add(new Interval(currLeft, currRight));
+                currLeft = next.left;
+                currRight = next.right;
+            } else {
+                if (next.left.val < currLeft.val || (next.left.val == currLeft.val && next.left.isClosed)) {
+                    currLeft = next.left;
+                }
+                if (next.right.val > currRight.val || (next.right.val == currRight.val && next.right.isClosed)) {
+                    currRight = next.right;
+                }
+            }
+        }
+        ans.add(new Interval(currLeft, currRight));
+        return ans;
+    }
 
     public static class Interval {
         public Endpoint left = new Endpoint();
         public Endpoint right = new Endpoint();
 
+        public Interval() {
+        }
+
+        public Interval(Endpoint left, Endpoint right) {
+            this.left = left;
+            this.right = right;
+        }
+
         private static class Endpoint {
             public boolean isClosed;
             public int val;
         }
-    }
-
-    public static List<Interval> unionOfIntervals(List<Interval> intervals) {
-        // TODO - you fill in here.
-        return Collections.emptyList();
     }
 
     @EpiUserType(
