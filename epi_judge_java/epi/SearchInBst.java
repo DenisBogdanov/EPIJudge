@@ -6,7 +6,16 @@ import epi.test_framework.GenericTest;
 public class SearchInBst {
 
     public static BstNode<Integer> searchBST(BstNode<Integer> tree, int key) {
-        // TODO - you fill in here.
+        BstNode<Integer> curr = tree;
+        while (curr != null) {
+            if (curr.data == key) {
+                return curr;
+            } else if (curr.data < key) {
+                curr = curr.right;
+            } else {
+                curr = curr.left;
+            }
+        }
         return null;
     }
 
