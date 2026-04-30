@@ -4,12 +4,18 @@ import epi.test_framework.*;
 
 public class LowestCommonAncestorInBst {
 
-    // Input nodes are nonempty and the key at s is less than or equal to that at
-    // b.
-    public static BstNode<Integer>
-    findLca(BstNode<Integer> tree, BstNode<Integer> s, BstNode<Integer> b) {
-        // TODO - you fill in here.
-        return null;
+    // Input nodes are nonempty and the key at s is less than or equal to that at b.
+    public static BstNode<Integer> findLca(BstNode<Integer> tree, BstNode<Integer> s, BstNode<Integer> b) {
+        BstNode<Integer> curr = tree;
+        while (true) {
+            if (curr.data >= s.data && curr.data <= b.data) {
+                return curr;
+            } else if (curr.data < b.data) {
+                curr = curr.right;
+            } else {
+                curr = curr.left;
+            }
+        }
     }
 
     @EpiTest(testDataFile = "lowest_common_ancestor_in_bst.tsv")
