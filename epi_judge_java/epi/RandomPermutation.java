@@ -8,12 +8,21 @@ import epi.test_framework.TimedExecutor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class RandomPermutation {
+    private static final Random RAND = new Random();
 
     public static List<Integer> computeRandomPermutation(int n) {
-        // TODO - you fill in here.
-        return Collections.emptyList();
+        List<Integer> ans = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            ans.add(i);
+        }
+        for (int i = 0; i < n; i++) {
+            int idx = RAND.nextInt(i + 1);
+            Collections.swap(ans, i, idx);
+        }
+        return ans;
     }
 
     private static int factorial(int n) {
