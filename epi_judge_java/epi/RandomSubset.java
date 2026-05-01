@@ -8,13 +8,24 @@ import epi.test_framework.TimedExecutor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class RandomSubset {
+    private static final Random RAND = new Random();
 
     // Returns a random k-sized subset of {0, 1, ..., n - 1}.
     public static List<Integer> randomSubset(int n, int k) {
-        // TODO - you fill in here.
-        return Collections.emptyList();
+        List<Integer> ans = new ArrayList<>();
+        for (int i = 0; i < k; i++) {
+            ans.add(i);
+        }
+        for (int i = k; i < n; i++) {
+            int idx = RAND.nextInt(i + 1);
+            if (idx < k) {
+                ans.set(idx, i);
+            }
+        }
+        return ans;
     }
 
     private static boolean randomSubsetRunner(TimedExecutor executor, int n,
