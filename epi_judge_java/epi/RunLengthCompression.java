@@ -7,13 +7,34 @@ import epi.test_framework.TestFailure;
 public class RunLengthCompression {
 
     public static String decoding(String s) {
-        // TODO - you fill in here.
-        return "";
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (Character.isDigit(s.charAt(i))) {
+                count *= 10;
+                count += s.charAt(i) - '0';
+            } else {
+                sb.append(String.valueOf(s.charAt(i)).repeat(Math.max(0, count)));
+                count = 0;
+            }
+        }
+        sb.append(String.valueOf(s.charAt(s.length() - 1)).repeat(Math.max(0, count)));
+        return sb.toString();
     }
 
     public static String encoding(String s) {
-        // TODO - you fill in here.
-        return "";
+        int count = 1;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i < s.length(); i++) {
+            if (s.charAt(i) == s.charAt(i - 1)) {
+                count++;
+            } else {
+                sb.append(count).append(s.charAt(i - 1));
+                count = 1;
+            }
+        }
+        sb.append(count).append(s.charAt(s.length() - 1));
+        return sb.toString();
     }
 
     @EpiTest(testDataFile = "run_length_compression.tsv")
