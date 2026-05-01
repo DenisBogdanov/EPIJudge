@@ -5,17 +5,17 @@ import epi.test_framework.GenericTest;
 import epi.test_framework.RandomSequenceChecker;
 import epi.test_framework.TimedExecutor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class NonuniformRandomNumber {
 
-    public static int
-    nonuniformRandomNumberGeneration(List<Integer> values,
-                                     List<Double> probabilities) {
-        // TODO - you fill in here.
+    public static int nonuniformRandomNumberGeneration(List<Integer> values, List<Double> probabilities) {
+        double r = Math.random();
+        double currSum = 0.0;
+        for (int i = 0; i < values.size(); i++) {
+            currSum += probabilities.get(i);
+            if (currSum >= r) return values.get(i);
+        }
         return 0;
     }
 
