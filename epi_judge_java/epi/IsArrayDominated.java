@@ -5,10 +5,24 @@ import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 import epi.test_framework.TimedExecutor;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 class Team {
+
+    // Checks if t1 can be placed in front of t2.
+    public static boolean validPlacementExists(Team t1, Team t2) {
+        t1.players.sort(null);
+        t2.players.sort(null);
+        for (int i = 0; i < t1.players.size(); i++) {
+            if (t1.players.get(i).height >= t2.players.get(i).height) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private static class Player implements Comparable<Player> {
         public Integer height;
 
@@ -25,12 +39,6 @@ class Team {
     public Team(List<Integer> height) {
         players =
                 height.stream().map(h -> new Player(h)).collect(Collectors.toList());
-    }
-
-    // Checks if team0 can be placed in front of team1.
-    public static boolean validPlacementExists(Team team0, Team team1) {
-        // TODO - you fill in here.
-        return true;
     }
 
     private List<Player> players;
