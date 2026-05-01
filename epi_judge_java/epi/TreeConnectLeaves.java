@@ -5,16 +5,24 @@ import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 import epi.test_framework.TimedExecutor;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class TreeConnectLeaves {
 
-    public static List<BinaryTreeNode<Integer>>
-    createListOfLeaves(BinaryTreeNode<Integer> tree) {
-        // TODO - you fill in here.
-        return Collections.emptyList();
+    public static List<BinaryTreeNode<Integer>> createListOfLeaves(BinaryTreeNode<Integer> tree) {
+        List<BinaryTreeNode<Integer>> ans = new ArrayList<>();
+        addLeavesLeftToRight(tree, ans);
+        return ans;
+    }
+
+    private static void addLeavesLeftToRight(BinaryTreeNode<Integer> tree, List<BinaryTreeNode<Integer>> ans) {
+        if (tree == null) return;
+        if (tree.left == null && tree.right == null) {
+            ans.add(tree);
+        } else {
+            addLeavesLeftToRight(tree.left, ans);
+            addLeavesLeftToRight(tree.right, ans);
+        }
     }
 
     @EpiTest(testDataFile = "tree_connect_leaves.tsv")
