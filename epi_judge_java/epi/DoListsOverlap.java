@@ -10,10 +10,22 @@ import java.util.Set;
 
 public class DoListsOverlap {
 
-    public static ListNode<Integer> overlappingLists(ListNode<Integer> l0,
-                                                     ListNode<Integer> l1) {
-        // TODO - you fill in here.
-        return null;
+    public static ListNode<Integer> overlappingLists(ListNode<Integer> list1, ListNode<Integer> list2) {
+        ListNode<Integer> c1 = IsListCyclic.hasCycle(list1);
+        ListNode<Integer> c2 = IsListCyclic.hasCycle(list2);
+        if (c1 != null && c2 != null) {
+            if (c1 == c2) return c1;
+            var runner = c1;
+            while (runner.next != c1) {
+                if (runner == c2) return runner;
+                runner = runner.next;
+            }
+            return null;
+        } else if (c1 != null || c2 != null) {
+            return null;
+        } else {
+            return DoTerminatedListsOverlap.overlappingNoCycleLists(list1, list2);
+        }
     }
 
     @EpiTest(testDataFile = "do_lists_overlap.tsv")
