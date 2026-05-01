@@ -4,11 +4,39 @@ import epi.test_framework.EpiTest;
 import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class CalendarRendering {
-    @EpiUserType(ctorParams = {int.class, int.class})
 
+    @EpiTest(testDataFile = "calendar_rendering.tsv")
+    public static int findMaxSimultaneousEvents(List<Event> events) {
+        List<EventEntry> eventEntries = new ArrayList<>();
+        for (var event : events) {
+            eventEntries.add(new EventEntry(event.start, true));
+            eventEntries.add(new EventEntry(event.finish, false));
+        }
+        eventEntries.sort((e1, e2) -> {
+            if (e1.time == e2.time) return e1.isStart ? -1 : 1;
+            return e1.time - e2.time;
+        });
+        int ans = 0;
+        int curr = 0;
+        for (var eventEntry : eventEntries) {
+            if (eventEntry.isStart) {
+                curr++;
+                ans = Math.max(ans, curr);
+            } else {
+                curr--;
+            }
+        }
+        return ans;
+    }
+
+    private record EventEntry(int time, boolean isStart) {}
+
+    @EpiUserType(ctorParams = {int.class, int.class})
     public static class Event {
         public int start, finish;
 
@@ -26,13 +54,6 @@ public class CalendarRendering {
             this.time = time;
             this.isStart = isStart;
         }
-    }
-
-    @EpiTest(testDataFile = "calendar_rendering.tsv")
-
-    public static int findMaxSimultaneousEvents(List<Event> A) {
-        // TODO - you fill in here.
-        return 0;
     }
 
     public static void main(String[] args) {
