@@ -9,8 +9,14 @@ import java.util.List;
 public class AbsentValueArray {
 
     public static int findMissingElement(Iterable<Integer> stream) {
-        // TODO - you fill in here.
-        return 0;
+        int n = 0;
+        long totalSum = 0;
+        for (int num : stream) {
+            n++;
+            totalSum += num;
+        }
+        long expectedSum = (long) n * (n + 1) / 2;
+        return (int) (expectedSum - totalSum);
     }
 
     @EpiTest(testDataFile = "absent_value_array.tsv")
